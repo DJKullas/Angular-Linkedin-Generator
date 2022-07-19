@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LinkedinService } from '../linkedin.service';
+import { Firestore, collectionData, collection, setDoc, doc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-landing',
@@ -11,7 +12,7 @@ export class LandingComponent implements OnInit {
   linkedInUrl: string = "";
   customDomain: string = "";
 
-  constructor(private readonly linkedInService: LinkedinService) { }
+  constructor(private readonly linkedInService: LinkedinService, private store: Firestore) { }
 
   createWebsite() {
 
@@ -77,6 +78,8 @@ export class LandingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const test = doc(this.store, "test/1");
+    setDoc(test, {theKey: "TheValue"})
   }
 
 }

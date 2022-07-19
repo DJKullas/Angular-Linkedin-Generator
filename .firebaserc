@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "linkedingenerator-c0d88": {
+      "hosting": {
+        "linkedin-generator": [
+          "linkedingenerator-c0d88"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "linkedingenerator-c0d88"
+  }
+}
