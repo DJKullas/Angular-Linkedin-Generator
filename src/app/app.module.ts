@@ -15,12 +15,15 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AuthComponent } from './auth/auth.component';
 import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
 import { AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR } from "@angular/fire/compat/auth";
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { MatRadioModule } from '@angular/material/radio';
+import { WebsiteComponent } from './website/website.component';
 
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
   signInOptions: [
-    // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
     // {
     //   scopes: [
     //     'public_profile',
@@ -52,7 +55,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AppComponent,
     LandingComponent,
     CreativeCvComponent,
-    AuthComponent
+    AuthComponent,
+    WebsiteComponent
   ],
   imports: [
     BrowserModule,
@@ -64,8 +68,12 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     AngularFireAuthModule,
-    FirebaseUIModule.forRoot(firebaseUiAuthConfig)
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig),
+    MatRadioModule
   ],
+  providers: [
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

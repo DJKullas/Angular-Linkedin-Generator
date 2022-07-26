@@ -1,3 +1,18 @@
 <input placeholder="linkedIn Url" type="text" [(ngModel)]="linkedInUrl">
+
+<!-- Autofill this when linkedinurl is unputted using linkedin id -->
+<input placeholder="Your / Url" type="text" [(ngModel)]="userSelectedUrl">
+
+
+
 <input placeholder="Custom Domain" type="text" [(ngModel)]="customDomain">
 <button (click)="checkDomain()">Create Website</button>
+
+<mat-radio-group [(ngModel)]="websiteType" aria-label="Select an option">
+    <mat-radio-button value="creative">Creative</mat-radio-button>
+    <mat-radio-button value="other">Other</mat-radio-button>
+  </mat-radio-group>
+
+{{ currentUserId }}
+
+{{ currentUsername }}
