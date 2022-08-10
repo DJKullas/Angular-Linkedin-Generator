@@ -12,4 +12,8 @@ export class LinkedinService {
   checkDomain(domain: string) {
     return this.http.get('/api/checkDomain', {params: {domain: domain}});
   }
+
+  getLinkedInInfo(linkedInId: string) {
+    return this.http.get('/api/linkedInInfo', {params: {linkedInId: linkedInId}});
+  }
 }

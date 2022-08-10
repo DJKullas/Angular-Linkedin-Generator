@@ -1,7 +1,10 @@
-<div *ngIf="websiteType == ''">
+<div *ngIf="!showSpinner && isOwner">
+  Is Owner of Site, add a banner here telling to upgrade and leading to profile page
+</div>
+<div *ngIf="showSpinner">
     Spinner
 </div>
-<div *ngIf="websiteType == 'creative'">
+<div *ngIf="!showSpinner && websiteType == 'creative'">
     <header>
         <div class="profile-page sidebar-collapse">
           <nav class="navbar navbar-expand-lg fixed-top navbar-transparent bg-primary" color-on-scroll="400">
@@ -30,9 +33,9 @@
         <div class="page-header-image" data-parallax="true" style="background-image: url('images/cc-bg-1.jpg')"></div>
         <div class="container">
           <div class="content-center">
-            <div class="cc-profile-image"><a href="#"><img src="assets/images/anthony.jpg" alt="Image"/></a></div>
-            <div class="h2 title">Anthony Barnett</div>
-            <p class="category text-white">Web Developer, Graphic Designer,  Photographer</p><a class="btn btn-primary smooth-scroll mr-2" href="#contact" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Hire Me</a><a class="btn btn-primary" href="#" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Download CV</a>
+            <div class="cc-profile-image"><a href="#"><img src={{this.linkedInInfo.profilePicUrl}} alt="Image"/></a></div>
+            <div class="h2 title">{{this.linkedInInfo.name}}</div>
+            <p class="category text-white">{{this.linkedInInfo.occupation}}</p><a class="btn btn-primary smooth-scroll mr-2" href="#contact" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Hire Me</a><a class="btn btn-primary" href="#" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Download CV</a>
           </div>
         </div>
         <div class="section">
@@ -510,6 +513,6 @@
         </div>
       </footer>
 </div>
-<div *ngIf="websiteType == 'other'">
+<div *ngIf="!showSpinner && websiteType == 'other'">
     Other
 </div>

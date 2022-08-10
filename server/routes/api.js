@@ -18,39 +18,46 @@ router.get('/', (req, res) => {
 
 router.get('/checkDomain', (req, res) => {
 
-    console.log(req.query)
+  console.log(req.query)
 
-        axios.get(`https://api.ip2whois.com/v2?key=${process.env.IPWHOIS_KEY}&domain=${req.query.domain}`).then(response => {
-             // const data = response.json();
-        console.log(JSON.stringify(response.data));
-       return  res.status(200).json(response.data)
-        }).catch(error => {
-            console.log("dddWPdOvvsRKD: " + JSON.stringify(error.response.data))
- 
-            // Domain is invalid form
-            if (error.response.data.error.error_code == 10007) {
-               return res.status(200).json(error.response.data);
-            }
-    
-            // DOmain is available
-            if (error.response.data.error.error_code == 10006) {
-             return res.status(200).json(error.response.data);
-          }
-    
-            return res.status(error.status || 500).end(error.message)
-        })
-           
-  });
+  axios.get(`https://api.ip2whois.com/v2?key=${process.env.IPWHOIS_KEY}&domain=${req.query.domain}`).then(response => {
+    // const data = response.json();
+    console.log(JSON.stringify(response.data));
+    return res.status(200).json(response.data)
+  }).catch(error => {
+    console.log("dddWPdOvvsRKD: " + JSON.stringify(error.response.data))
 
-// router.get('/search', (req, res) => {
-//     axios.get(`${API}?ingredients=${req.query.query}&apiKey=${process.env.RECIPE_KEY}`)
-//       .then(data => {
-//           res.status(200).json(data.data);
-//       })
-//       .catch(error => {
-//         console.log(error);
-//         res.status(500).send("Broken.");
-//       });
-//   });
+    // Domain is invalid form
+    if (error.response.data.error.error_code == 10007) {
+      return res.status(200).json(error.response.data);
+    }
 
-  module.exports = router;
+    // DOmain is available
+    if (error.response.data.error.error_code == 10006) {
+      return res.status(200).json(error.response.data);
+    }
+
+    return res.status(error.status || 500).end(error.message)
+  })
+
+});
+
+
+
+router.get('/linkedInInfo', (req, res) => {
+
+  const config = {
+    headers: { Authorization: `Bearer ${process.env.PROXYCURL_TOKEN}` }
+  };
+
+  axios.get(`https://nubela.co/proxycurl/api/v2/linkedin?url=https://www.linkedin.com/in/${req.query.linkedInId}/`, config)
+    .then(data => {
+      res.status(200).json(data.data);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).send("Broken.");
+    });
+});
+
+module.exports = router;

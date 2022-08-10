@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { doc, docData, Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { LinkedinService } from '../linkedin.service';
+import { linkedInInfo } from '../models/linkedInInfo.model';
 
 @Component({
   selector: 'app-website',
@@ -11,8 +14,13 @@ export class WebsiteComponent implements OnInit {
 
   linkedInId: string = "";
   websiteType: string = "";
+  linkedInInfo: linkedInInfo = new linkedInInfo();
+  showSpinner: boolean = true;
+  currentUserId: string = "";
+  ownerUserId: string = "";
+  isOwner: boolean = false;
 
-  constructor(private router: Router,private store: Firestore) { }
+  constructor(private readonly auth: AngularFireAuth, private router: Router,private store: Firestore, private readonly linkedInService: LinkedinService) { }
 
   getLinkedInId() {
     var urlArray = this.router.url.split("/");
@@ -24,7 +32,20 @@ export class WebsiteComponent implements OnInit {
     urlData.subscribe((res: any) => {
       console.log(res);
       this.websiteType = res.websiteType;
+      this.linkedInId = res.linkedInId;
+      this.ownerUserId = res.userId;
+      this.checkLogin();
+      this.getLinkedInInfo();
       this.loadScripts();
+    });
+  }
+
+  getLinkedInInfo() {
+    this.linkedInService.getLinkedInInfo(this.linkedInId).subscribe((res: any) => {
+      this.linkedInInfo.name = res.full_name;
+      this.linkedInInfo.occupation = res.occupation;
+      this.linkedInInfo.profilePicUrl = res.profile_pic_url;
+      this.showSpinner = false;
     });
   }
 
@@ -51,6 +72,23 @@ export class WebsiteComponent implements OnInit {
     script.async = false;
     script.defer = true;
     body.appendChild(script);
+  }
+
+  checkLogin() {
+    this.auth.authState.subscribe((res: any) => {
+      
+      if (res) {
+        this.currentUserId = res.uid;
+
+        this.isOwner = this.ownerUserId === this.currentUserId;
+
+        // if (res.displayName) {
+        //   this.currentUsername = res.displayName;
+        // } else {
+        //   this.currentUsername = res.email;
+        // }
+      } 
+    });
   }
 
   ngOnInit(): void {

@@ -82,6 +82,9 @@ export class LandingComponent implements OnInit {
           console.log("No RES SO SET THE DOC")
           setDoc(url, { websiteType: this.websiteType, customDomain: this.customDomain, userId: this.currentUserId, linkedInId: id }).then(() => {
             console.log("set doc");
+
+            this.router.navigate([`w/${this.userSelectedUrl}`]);
+
             // redirect to website page
           }).catch(() => {
             console.log("error setting doc");
