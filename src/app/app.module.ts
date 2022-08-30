@@ -18,6 +18,7 @@ import { AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR } from "@angul
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { MatRadioModule } from '@angular/material/radio';
 import { WebsiteComponent } from './website/website.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -56,7 +57,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     LandingComponent,
     CreativeCvComponent,
     AuthComponent,
-    WebsiteComponent
+    WebsiteComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -29,6 +29,8 @@ export class LandingComponent implements OnInit {
     if (this.currentUserId == "") {
       this.router.navigate(['/auth']);
 
+      // CONTINUE THE WEBSITE CREATION
+
       return;
     }
 
@@ -66,6 +68,7 @@ export class LandingComponent implements OnInit {
 
       var counter = 2;
       const url = doc(this.store, "urls/" + this.userSelectedUrl);
+      const user  = doc(this.store, "users/" + this.currentUserId, "/websites/" + this.userSelectedUrl);
 
       console.log("URL: ");
       console.log(url);
@@ -80,12 +83,19 @@ export class LandingComponent implements OnInit {
           console.log("URL IS TAKEN CHOOSE ANOTHER");
         } else {
           console.log("No RES SO SET THE DOC")
+
+
+
           setDoc(url, { websiteType: this.websiteType, customDomain: this.customDomain, userId: this.currentUserId, linkedInId: id }).then(() => {
             console.log("set doc");
-
-            this.router.navigate([`w/${this.userSelectedUrl}`]);
-
-            // redirect to website page
+          }).then(() => {
+            setDoc(user, { customDomain: this.customDomain, url: this.userSelectedUrl }).then(() => {
+              console.log("set user url");
+  
+              this.router.navigate([`w/${this.userSelectedUrl}`]);
+  
+              // redirect to website page
+            })
           }).catch(() => {
             console.log("error setting doc");
           });
