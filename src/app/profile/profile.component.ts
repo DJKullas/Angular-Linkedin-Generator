@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
       console.log(res);
       if (res) {
         const websitesRef = collection(this.store, "users/" + res.uid + "/websites");
-        const websites = collectionData(websitesRef).subscribe((websites: DocumentData[]) => {
+        collectionData(websitesRef).subscribe((websites: DocumentData[]) => {
           console.log("here");
           console.log(res);
   
