@@ -5,6 +5,10 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as e from 'express';
 import { Route, Router } from '@angular/router';
 import { getDoc, updateDoc } from 'firebase/firestore';
+import { getApp } from "@firebase/app";
+import { getStripePayments } from "@stripe/firestore-stripe-payments";
+import { createCheckoutSession } from "@stripe/firestore-stripe-payments";
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-landing',
@@ -19,6 +23,11 @@ export class LandingComponent implements OnInit {
   currentUserId: string = "";
   websiteType: string = "";
   userSelectedUrl: string = "";
+  app = getApp();
+  payments = getStripePayments(this.app, {
+    productsCollection: "products",
+    customersCollection: "customers",
+  });
 
   constructor(private readonly linkedInService: LinkedinService, private store: Firestore, private auth: AngularFireAuth, private router: Router) { }
 
@@ -89,10 +98,31 @@ export class LandingComponent implements OnInit {
           setDoc(url, { websiteType: this.websiteType, customDomain: this.customDomain, userId: this.currentUserId, linkedInId: id }).then(() => {
             console.log("set doc");
           }).then(() => {
-            setDoc(user, { customDomain: this.customDomain, url: this.userSelectedUrl }).then(() => {
+            setDoc(user, { customDomain: this.customDomain, url: this.userSelectedUrl }).then(async () => {
               console.log("set user url");
   
-              this.router.navigate([`w/${this.userSelectedUrl}`]);
+              if (this.customDomain != "") {
+                console.log("INSIDE THE CUSTOM DOMAIN");
+                console.log("Paymenyts: " + JSON.stringify(this.payments));
+                console.log("PRICE: " + environment.PREMIUM_PRICE_ID);
+                const session = await createCheckoutSession(this.payments, {
+                  price: environment.PREMIUM_PRICE_ID,
+                  success_url: `http://localhost:3000/w/${this.userSelectedUrl}`,
+                  cancel_url: "http://localhost:3000",
+                });
+
+                // TODO: ADD URL PARAM TO SUCCESSFUL PAYMENT TO show dialog saying custom site takes 72 hours
+
+                console.log("Session: " + JSON.stringify(session));
+
+                window.location.assign(session.url);
+              } else {
+                this.router.navigate([`w/${this.userSelectedUrl}`]);
+              }
+
+              
+
+              
   
               // redirect to website page
             })

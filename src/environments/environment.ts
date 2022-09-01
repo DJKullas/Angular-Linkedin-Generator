@@ -12,7 +12,8 @@ export const environment = {
     messagingSenderId: '20864280026',
     measurementId: 'G-R2BBDE1LWK',
   },
-  production: false
+  production: false,
+  PREMIUM_PRICE_ID: "price_1LcJHdHPSFrU3NLYZQfCMK8d",
 };
 
 /*
