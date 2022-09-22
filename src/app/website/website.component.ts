@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { doc, docData, Firestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LinkedinService } from '../linkedin.service';
 import { linkedInInfo } from '../models/linkedInInfo.model';
 
@@ -19,11 +19,15 @@ export class WebsiteComponent implements OnInit {
   currentUserId: string = "";
   ownerUserId: string = "";
   isOwner: boolean = false;
+  redirectPaid: boolean = false;
 
-  constructor(private readonly auth: AngularFireAuth, private router: Router,private store: Firestore, private readonly linkedInService: LinkedinService) { }
+  constructor(private readonly auth: AngularFireAuth, private router: Router,private store: Firestore, private readonly linkedInService: LinkedinService,
+              private route: ActivatedRoute) { }
 
   getLinkedInId() {
-    var urlArray = this.router.url.split("/");
+    var urlBeforeParams = this.router.url.split("?")[0];
+    console.log("BEFORE PARAMS: " + urlBeforeParams)
+    var urlArray = urlBeforeParams.split("/");
     var lookupKey = urlArray[urlArray.length - 1];
 
     const url = doc(this.store, "urls/" + lookupKey);
@@ -91,7 +95,17 @@ export class WebsiteComponent implements OnInit {
     });
   }
 
+  setIfPaid(): void {
+    this.route.queryParams
+      .subscribe((params: any) => {
+        console.log(params); // { category: "fiction" }
+        this.redirectPaid = params['redirectPaid'];
+      }
+    );
+  }
+
   ngOnInit(): void {
+    this.setIfPaid();
     this.getLinkedInId();
   }
 

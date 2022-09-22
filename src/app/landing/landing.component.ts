@@ -107,7 +107,7 @@ export class LandingComponent implements OnInit {
                 console.log("PRICE: " + environment.PREMIUM_PRICE_ID);
                 const session = await createCheckoutSession(this.payments, {
                   price: environment.PREMIUM_PRICE_ID,
-                  success_url: `http://localhost:3000/w/${this.userSelectedUrl}`,
+                  success_url: `http://localhost:3000/w/${this.userSelectedUrl}?redirectPaid=true`,
                   cancel_url: "http://localhost:3000",
                 });
 
