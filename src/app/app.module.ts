@@ -89,7 +89,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
         MatButtonModule,
         MatToolbarModule,
         SharedModule,
-        HomeModule
+        HomeModule,
     ]
 })
 export class AppModule { }

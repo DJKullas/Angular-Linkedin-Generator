@@ -1,6 +1,6 @@
-export function getIndexBy(array: Array<{}>, { name, value }): number {
+export function getIndexBy(array: Array<{}>, { name, value }: {name: any, value: any}): number {
   for (let i = 0; i < array.length; i++) {
-    if (array[i][name] === value) {
+    if (array[i][name as keyof typeof array[typeof i]] === value) {
       return i;
     }
   }
@@ -21,7 +21,7 @@ function currentYPosition() {
   return 0;
 }
 
-function elmYPosition(elm) {
+function elmYPosition(elm: any) {
   var y = elm.offsetTop;
   var node = elm;
   while (node.offsetParent && node.offsetParent !== document.body) {
@@ -31,14 +31,14 @@ function elmYPosition(elm) {
   return y;
 }
 
-export function scrollTo(selector) {
+export function scrollTo(selector: any) {
   var elm = document.querySelector(selector);
   if (!selector || !elm) {
     return;
   }
   var startY = currentYPosition();
   var stopY = elmYPosition(elm);
-  var distance = stopY > startY ? stopY - startY : startY - stopY;
+  var distance = stopY > startY! ? stopY - startY! : startY! - stopY;
   if (distance < 100) {
     window.scrollTo(0, stopY);
     return;
@@ -46,10 +46,10 @@ export function scrollTo(selector) {
   var speed = Math.round(distance / 50);
   if (speed >= 20) speed = 20;
   var step = Math.round(distance / 25);
-  var leapY = stopY > startY ? startY + step : startY - step;
+  var leapY = stopY > startY! ? startY! + step : startY! - step;
   var timer = 0;
-  if (stopY > startY) {
-    for (var i = startY; i < stopY; i += step) {
+  if (stopY > startY!) {
+    for (var i = startY; i! < stopY; i! += step) {
       setTimeout(
         (function(leapY) {
           return () => {
@@ -64,7 +64,7 @@ export function scrollTo(selector) {
     }
     return;
   }
-  for (let i = startY; i > stopY; i -= step) {
+  for (let i = startY; i! > stopY; i! -= step) {
     setTimeout(
       (function(leapY) {
         return () => {

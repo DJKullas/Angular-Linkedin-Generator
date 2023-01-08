@@ -6,8 +6,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
-  @Input('backgroundGray') public backgroundGray;
-  contactForm: FormGroup;
+  @Input('backgroundGray') public backgroundGray: any;
+  contactForm!: FormGroup;
   constructor(
     private fb: FormBuilder
   ) { }

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { scrollTo } from '../../../shared/helpers/utils';
+import { scrollTo } from '../../shared/helpers/utils';
 
 @Component({
   selector: 'app-demo',

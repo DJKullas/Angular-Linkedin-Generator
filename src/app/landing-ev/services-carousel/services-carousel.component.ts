@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
+//import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
 
 @Component({
   selector: 'app-services-carousel',
@@ -7,8 +7,8 @@ import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
   styleUrls: ['./services-carousel.component.scss']
 })
 export class ServicesCarouselComponent implements OnInit {
-  @Input('backgroundGray') public backgroundGray;
-  public carouselOptions: NguCarouselConfig;
+  @Input('backgroundGray') public backgroundGray: any;
+  //public carouselOptions: NguCarouselConfig;
   public services = [{
     icon: 'dashboard',
     text: `Lorem ipsum dolor sit amet conse ctetur adipi sicing elit. Doloribus numquam quis.`,
@@ -38,18 +38,18 @@ export class ServicesCarouselComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.carouselOptions = {
-      grid: { xs: 1, sm: 2, md: 3, lg: 3, all: 0 },
-      slide: 2,
-      speed: 400,
-      interval: {timing: 4000},
-      point: {
-        visible: true
-      },
-      load: 2,
-      touch: true,
-      loop: true
-    }
+    // this.carouselOptions = {
+    //   grid: { xs: 1, sm: 2, md: 3, lg: 3, all: 0 },
+    //   slide: 2,
+    //   speed: 400,
+    //   interval: {timing: 4000},
+    //   point: {
+    //     visible: true
+    //   },
+    //   load: 2,
+    //   touch: true,
+    //   loop: true
+    // }
   }
 
 }

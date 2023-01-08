@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./pricings.component.scss']
 })
 export class PricingsComponent implements OnInit {
-  @Input('backgroundGray') public backgroundGray;
+  @Input('backgroundGray') public backgroundGray: any;
   isAnnualSelected: boolean = false;
   constructor() { }
 

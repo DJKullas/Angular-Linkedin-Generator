@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, Input } from '@angular/core';
-import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
+// import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { BottomSheetShareComponent } from '../../../shared/components/bottom-sheet-share/bottom-sheet-share.component';
+import { BottomSheetShareComponent } from '../../shared/components/bottom-sheet-share/bottom-sheet-share.component';
 
 
 @Component({
@@ -11,9 +11,9 @@ import { BottomSheetShareComponent } from '../../../shared/components/bottom-she
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PortfolioCarouselComponent implements OnInit {
-  @Input('backgroundGray') public backgroundGray;
+  @Input('backgroundGray') public backgroundGray: any;
   
-  public carouselOptions: NguCarouselConfig;
+  // public carouselOptions: NguCarouselConfig;
   public portfolios = [{
     photo: 'assets/images/sq-10.jpg',
     text: `Adipisci quas repellat sed. Quasi quaerat aut nam possimus 
@@ -54,18 +54,18 @@ export class PortfolioCarouselComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.carouselOptions = {
-      grid: { xs: 1, sm: 2, md: 3, lg: 3, all: 0 },
-      slide: 2,
-      speed: 400,
-      interval: {timing: 4000},
-      point: {
-        visible: true
-      },
-      load: 2,
-      touch: true,
-      loop: true
-    }
+    // this.carouselOptions = {
+    //   grid: { xs: 1, sm: 2, md: 3, lg: 3, all: 0 },
+    //   slide: 2,
+    //   speed: 400,
+    //   interval: {timing: 4000},
+    //   point: {
+    //     visible: true
+    //   },
+    //   load: 2,
+    //   touch: true,
+    //   loop: true
+    // }
   }
 
   ngAfterViewInit() {

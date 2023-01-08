@@ -3,7 +3,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  public authToken;
+  public authToken: any;
   private isAuthenticated = true; // Set this value dynamically
   
   constructor(private router: Router) {}

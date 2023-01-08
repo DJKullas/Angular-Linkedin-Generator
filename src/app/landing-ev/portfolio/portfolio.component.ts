@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./portfolio.component.scss']
 })
 export class PortfolioComponent implements OnInit {
-  @Input('backgroundGray') public backgroundGray;
+  @Input('backgroundGray') public backgroundGray: any;
   
   constructor() { }
 

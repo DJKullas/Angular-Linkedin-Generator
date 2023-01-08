@@ -1,5 +1,5 @@
-export function getQueryParam(prop) {
-  var params = {};
+export function getQueryParam(prop: string) {
+  var params: {[k: string]: any} = {};
   var search = decodeURIComponent(window.location.href.slice(window.location.href.indexOf('?') + 1));
   var definitions = search.split('&');
   definitions.forEach(function (val, key) {

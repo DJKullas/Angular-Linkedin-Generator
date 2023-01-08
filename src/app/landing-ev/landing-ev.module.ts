@@ -15,7 +15,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { SharedModule } from '../shared/shared.module';
 // import { HomeRoutes } from "./home.routing";
-// import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 // import { NguCarouselModule } from '@ngu/carousel';
 // import { HomeOneComponent } from './home-one.component';
 // import { HomeTwoComponent } from './home-two.component';
@@ -54,9 +54,19 @@ import { Service3Component } from './service3/service3.component';
     SharedDirectivesModule,
     SharedComponentsModule,
     SharedMaterialModule,
-    // FlexLayoutModule,
+    FlexLayoutModule,
     // NguCarouselModule,
-    // RouterModule.forChild(HomeRoutes)
+    // RouterModule.forChild(HomeRoutes),
+    MatButtonModule,
+    MatCardModule,
+    MatChipsModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatRippleModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
   ],
   declarations: [
     HeaderComponent, 
@@ -78,6 +88,21 @@ import { Service3Component } from './service3/service3.component';
   ],
   exports: [
     HeaderComponent,
+    IntroOneComponent,
+    IntroTwoComponent, 
+    PortfolioComponent, 
+    ServicesComponent, 
+    CtaComponent, 
+    PricingsComponent, 
+    ContactComponent, 
+    FooterComponent, 
+    TestimonialsComponent, 
+    PortfolioCarouselComponent,  
+    TestimonialsCarouselComponent, 
+    ServicesCarouselComponent, 
+    DemoComponent,
+    IntroThreeComponent,
+    Service3Component
   ],
   providers: [WINDOW_PROVIDERS]
 

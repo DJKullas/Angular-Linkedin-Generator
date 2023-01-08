@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./service3.component.scss']
 })
 export class Service3Component implements OnInit {
-  @Input('backgroundGray') public backgroundGray;
+  @Input('backgroundGray') public backgroundGray: any;
   
   constructor() { }
 

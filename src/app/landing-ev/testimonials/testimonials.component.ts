@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
+// import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
 
 @Component({
   selector: 'app-testimonials',
@@ -7,8 +7,8 @@ import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
   styleUrls: ['./testimonials.component.scss']
 })
 export class TestimonialsComponent implements OnInit {
-  @Input('backgroundGray') public backgroundGray;
-  public carouselOptions: NguCarouselConfig;
+  @Input('backgroundGray') public backgroundGray: any;
+  // public carouselOptions: NguCarouselConfig;
   public testimonials = [{
     logo: 'assets/images/mock-logo-4.png',
     photo: 'assets/images/face-1.jpg',
@@ -35,18 +35,18 @@ export class TestimonialsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.carouselOptions = {
-      grid: { xs: 1, sm: 1, md: 1, lg: 3, all: 0 },
-      slide: 2,
-      speed: 400,
-      interval: {timing: 4000},
-      point: {
-        visible: true
-      },
-      load: 2,
-      touch: true,
-      loop: true
-    }
+    // this.carouselOptions = {
+    //   grid: { xs: 1, sm: 1, md: 1, lg: 3, all: 0 },
+    //   slide: 2,
+    //   speed: 400,
+    //   interval: {timing: 4000},
+    //   point: {
+    //     visible: true
+    //   },
+    //   load: 2,
+    //   touch: true,
+    //   loop: true
+    // }
   }
 
 }

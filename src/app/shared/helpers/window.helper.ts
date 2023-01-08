@@ -14,7 +14,7 @@ export class BrowserWindowRef extends WindowRef {
   constructor() {
     super();
   }
-  get nativeWindow(): Window {
+  override get nativeWindow(): Window {
     return _window();
   }
 }
