@@ -14,7 +14,8 @@ export class WebsiteComponent implements OnInit {
 
   linkedInId: string = "";
   websiteType: string = "";
-  linkedInInfo: linkedInInfo = new linkedInInfo();
+  //linkedInInfo: linkedInInfo = new linkedInInfo();
+  linkedInInfo: any = {};
   showSpinner: boolean = true;
   currentUserId: string = "";
   ownerUserId: string = "";
@@ -46,9 +47,10 @@ export class WebsiteComponent implements OnInit {
 
   getLinkedInInfo() {
     this.linkedInService.getLinkedInInfo(this.linkedInId).subscribe((res: any) => {
-      this.linkedInInfo.name = res.full_name;
-      this.linkedInInfo.occupation = res.occupation;
-      this.linkedInInfo.profilePicUrl = res.profile_pic_url;
+      // this.linkedInInfo.name = res.full_name;
+      // this.linkedInInfo.occupation = res.occupation;
+      // this.linkedInInfo.profilePicUrl = res.profile_pic_url;
+      this.linkedInInfo = res;
       this.showSpinner = false;
     });
   }

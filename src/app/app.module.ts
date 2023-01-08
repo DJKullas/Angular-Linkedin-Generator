@@ -17,8 +17,15 @@ import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
 import { AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR } from "@angular/fire/compat/auth";
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { WebsiteComponent } from './website/website.component';
 import { ProfileComponent } from './profile/profile.component';
+import { MatButtonModule } from '@angular/material/button'
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { LandingEvComponent } from './landing-ev/landing-ev.component';
+import { SharedModule } from './shared/shared.module';
+import { HomeModule } from "./landing-ev/landing-ev.module";
 
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -52,30 +59,37 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LandingComponent,
-    CreativeCvComponent,
-    AuthComponent,
-    WebsiteComponent,
-    ProfileComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
-    AngularFireAuthModule,
-    FirebaseUIModule.forRoot(firebaseUiAuthConfig),
-    MatRadioModule
-  ],
-  providers: [
-    { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
-],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LandingComponent,
+        CreativeCvComponent,
+        AuthComponent,
+        WebsiteComponent,
+        ProfileComponent,
+        LandingEvComponent
+    ],
+    providers: [
+        { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
+    ],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideAuth(() => getAuth()),
+        provideFirestore(() => getFirestore()),
+        AngularFireAuthModule,
+        FirebaseUIModule.forRoot(firebaseUiAuthConfig),
+        MatRadioModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatToolbarModule,
+        SharedModule,
+        HomeModule
+    ]
 })
 export class AppModule { }

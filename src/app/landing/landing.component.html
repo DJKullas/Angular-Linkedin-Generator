@@ -1,18 +1,37 @@
-<input placeholder="linkedIn Url" type="text" [(ngModel)]="linkedInUrl">
+<mat-toolbar>
+  <div>
+    <h1 class="center-text">LinkedIn Generator</h1>
+    <p class="center-text">Create a personal website using your LinkedIn data</p>
+  </div>
+</mat-toolbar>
 
-<!-- Autofill this when linkedinurl is unputted using linkedin id -->
-<input placeholder="Your / Url" type="text" [(ngModel)]="userSelectedUrl">
 
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label>Your LinkedIn URL</mat-label>
+    <input matInput placeholder="linkedIn Url" type="text" [(ngModel)]="linkedInUrl">
+  </mat-form-field>
 
+  <mat-form-field class="example-full-width">
+    <mat-label>Your Desired URL</mat-label>
+    <!-- Autofill this when linkedinurl is unputted using linkedin id -->
+    <input matInput placeholder="Your / Url" type="text" [(ngModel)]="userSelectedUrl">
+  </mat-form-field>
 
-<input placeholder="Custom Domain" type="text" [(ngModel)]="customDomain">
-<button (click)="checkDomain()">Create Website</button>
+  <mat-form-field class="example-full-width">
+    <mat-label>Custom Domain</mat-label>
+    <input matInput placeholder="Custom Domain" type="text" [(ngModel)]="customDomain">
+  </mat-form-field>
 
-<mat-radio-group [(ngModel)]="websiteType" aria-label="Select an option">
+  <mat-radio-group [(ngModel)]="websiteType" aria-label="Select an option">
     <mat-radio-button value="creative">Creative</mat-radio-button>
     <mat-radio-button value="other">Other</mat-radio-button>
   </mat-radio-group>
 
-{{ currentUserId }}
+  
 
-{{ currentUsername }}
+<button mat-raised-button color="primary" (click)="checkDomain()">Create Website</button>
+
+
+
+</form>

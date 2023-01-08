@@ -57,9 +57,8 @@
           <div class="col-lg-6 col-md-12">
             <div class="card-body">
               <div class="h4 mt-0 title">About</div>
-              <p>Hello! I am Anthony Barnett. Web Developer, Graphic Designer and Photographer.</p>
-              <p>Creative CV is a HTML resume template for professionals. Built with Bootstrap 4, Now UI Kit and FontAwesome, this modern and responsive design template is perfect to showcase your portfolio, skills and experience. <a href="https://templateflip.com/templates/creative-cv/" target="_blank">Learn More</a></p>
-            </div>
+              <p>{{this.linkedInInfo.summary}}</p>
+               </div>
           </div>
           <div class="col-lg-6 col-md-12">
             <div class="card-body">
@@ -78,7 +77,7 @@
               </div>
               <div class="row mt-3">
                 <div class="col-sm-4"><strong class="text-uppercase">Address:</strong></div>
-                <div class="col-sm-8">140, City Center, New York, U.S.A</div>
+                <div class="col-sm-8">{{this.linkedInInfo.city}, {{this.linkedInInfo.state</div>
               </div>
               <div class="row mt-3">
                 <div class="col-sm-4"><strong class="text-uppercase">Language:</strong></div>
@@ -283,26 +282,26 @@
     <div class="container cc-experience">
       <div class="h4 text-center mb-4 title">Work Experience</div>
       
-      <div class="card">
+      <div *ngFor="let exp of linkedInInfo.experiences" class="card">
         
         <div class="row">
           
           <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
            
             <div class="card-body cc-experience-header">
-              <p>March 2016 - Present</p>
-              <div class="h5">CreativeM</div>
+              <p>{{exp.starts_at.month}} {{exp.starts_at.year}} - {{exp.ends_at ? exp.ends_at.month + " " + exp.ends_at.year : "Present"}}</p>
+              <div class="h5">{{exp.company}}</div>
             </div>
           </div>
           <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
             <div class="card-body">
-              <div class="h5">Front End Developer</div>
-              <p>Euismod massa scelerisque suspendisse fermentum habitant vitae ullamcorper magna quam iaculis, tristique sapien taciti mollis interdum sagittis libero nunc inceptos tellus, hendrerit vel eleifend primis lectus quisque cubilia sed mauris. Lacinia porta vestibulum diam integer quisque eros pulvinar curae, curabitur feugiat arcu vivamus parturient aliquet laoreet at, eu etiam pretium molestie ultricies sollicitudin dui.</p>
+              <div class="h5">{{exp.title}}</div>
+              <p>{{exp.description}}</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="card">
+      <!-- <div class="card">
         <div class="row">
           <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
             <div class="card-body cc-experience-header">
@@ -333,30 +332,30 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     </div>
     <div class="section">
     <div class="container cc-education">
       <div class="h4 text-center mb-4 title">Education</div>
       <div class="card">
-        <div class="row">
+        <div *ngFor="let edu of linkedInInfo.education" class="row">
           <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
             <div class="card-body cc-education-header">
-              <p>2013 - 2015</p>
-              <div class="h5">Master's Degree</div>
+              <p>{{edu.starts_at.month}} {{edu.starts_at.year}} - {{edu.ends_at ? edu.ends_at.month + " " + edu.ends_at.year : "Present"}}</p>
+              <div class="h5">{{edu.degree_name}}</div>
             </div>
           </div>
           <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
             <div class="card-body">
-              <div class="h5">Master of Information Technology</div>
-              <p class="category">University of Computer Science</p>
-              <p>Euismod massa scelerisque suspendisse fermentum habitant vitae ullamcorper magna quam iaculis, tristique sapien taciti mollis interdum sagittis libero nunc inceptos tellus, hendrerit vel eleifend primis lectus quisque cubilia sed mauris. Lacinia porta vestibulum diam integer quisque eros pulvinar curae, curabitur feugiat arcu vivamus parturient aliquet laoreet at, eu etiam pretium molestie ultricies sollicitudin dui.</p>
+              <div class="h5">{{edu.field_of_study}}</div>
+              <p class="category">{{edu.school}}</p>
+              <p>{{edu.description}}</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="card">
+      <!-- <div class="card">
         <div class="row">
           <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
             <div class="card-body cc-education-header">
@@ -389,7 +388,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     </div>
     <div class="section" id="reference">
