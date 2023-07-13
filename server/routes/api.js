@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 // declare axios for making http requests
 const axios = require('axios');
@@ -28,13 +29,13 @@ router.get('/checkDomain', (req, res) => {
     console.log("dddWPdOvvsRKD: " + JSON.stringify(error.response.data))
 
     // Domain is invalid form
-    if (error.response.data.error.error_code == 10007) {
-      return res.status(200).json(error.response.data);
+    if (error?.response?.data?.error?.error_code == 10007) {
+      return res.status(200).json(error?.response?.data);
     }
 
     // DOmain is available
-    if (error.response.data.error.error_code == 10006) {
-      return res.status(200).json(error.response.data);
+    if (error?.response?.data?.error?.error_code == 10006) {
+      return res.status(200).json(error?.response?.data);
     }
 
     return res.status(error.status || 500).end(error.message)
@@ -59,5 +60,48 @@ router.get('/linkedInInfo', (req, res) => {
       res.status(500).send("Broken.");
     });
 });
+
+router.get('/getSubscriptions', (req, res) => {
+
+  const customerId = req.query.customerId;
+
+  stripe.subscriptions
+  .list({ customer: customerId })
+  .then(subscriptions => {
+    // Handle the canceledSubscription object or any other logic
+    res.status(200).json(subscriptions.data);
+  })
+  .catch((error) => {
+    // Handle any errors that occur during cancellation
+    console.error('Error getting subscriptions:', error);
+    res.status(500).send('Failed to get subscriptions');
+  });
+ 
+});
+
+router.post('/cancelSubscription', (req, res) => {
+
+  var util = require('util')
+  console.log("REQUEST HERE: " + util.inspect(req));
+
+  const subscriptionId = req.body.subscriptionId;
+
+  console.log("API SUB ID: " +  subscriptionId);
+
+  stripe.subscriptions
+    .del(subscriptionId)
+    .then((canceledSubscription) => {
+      // Handle the canceledSubscription object or any other logic
+      console.log('Subscription canceled:', canceledSubscription);
+      res.status(200).send('Subscription canceled successfully');
+    })
+    .catch((error) => {
+      // Handle any errors that occur during cancellation
+      console.error('Error canceling subscription:', error);
+      res.status(500).send('Failed to cancel subscription');
+    });
+});
+
+
 
 module.exports = router;

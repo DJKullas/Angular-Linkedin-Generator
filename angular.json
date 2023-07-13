@@ -121,5 +121,8 @@
       }
     }
   },
-  "defaultProject": "linkedin-generator"
+  "defaultProject": "linkedin-generator",
+  "cli": {
+    "analytics": false
+  }
 }

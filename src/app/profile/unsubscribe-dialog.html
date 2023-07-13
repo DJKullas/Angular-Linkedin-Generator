@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Unsubscribe</h1>
+<div mat-dialog-content>
+  <p>Are you sure you want to unsubscribe? You will lose your website at {{ customDomain }}.</p>
+</div>
+<div mat-dialog-actions class="mat-dialog-actions">
+  <button mat-raised-button color="secondary" (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button color="primary" cdkFocusInitial (click)="unsubscribe()">Unsubscribe</button>
+</div>

@@ -56,6 +56,15 @@
 .intro-product-link .price-text {
   font-size: 14px;
 }
+.main-input {
+  margin-right: 15px;
+}
+.submit-error {
+  padding-left: 20px;
+  color: red;
+  font-size: 16px;
+  text-align: center;
+}
 
 @media (max-width: 767px) {
   .home-intro-section {

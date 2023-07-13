@@ -16,4 +16,12 @@ export class LinkedinService {
   getLinkedInInfo(linkedInId: string) {
     return this.http.get('/api/linkedInInfo', {params: {linkedInId: linkedInId}});
   }
+
+  cancelSubscription(subscriptionId: string) {
+    return this.http.post("/api/cancelSubscription", { subscriptionId })
+  }
+
+  getSubscriptions(customerId: string) {
+    return this.http.get("/api/getSubscriptions", { params: { customerId } })
+  }
 }

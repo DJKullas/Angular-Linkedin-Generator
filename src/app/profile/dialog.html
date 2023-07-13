@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Upgrade to a Custom Domain</h1>
+<div mat-dialog-content>
+  <p>Please enter a custom domain for {{userSelectedUrl}} that will be used to access your website.</p>
+  <mat-form-field>
+    <mat-label>Custom Domain</mat-label>
+    <input matInput [(ngModel)]="customDomain">
+  </mat-form-field>
+  <p class="submit-error" *ngIf="submitError">{{submitError}}</p>
+</div>
+<div mat-dialog-actions class="mat-dialog-actions">
+  <button mat-raised-button color="secondary" (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button color="primary" cdkFocusInitial (click)="checkDomain()">Upgrade</button>
+</div>

@@ -1,5 +1,22 @@
-<p>profile works!</p>
-
-<div *ngFor="let website of websites">
-    {{printWebsite(website)}}
+<div class="profile-section">
+    <div class="container">
+        <h1 class="header">Your Websites</h1>
+    
+        <div>
+            <div class="website" *ngFor="let website of websites">
+                <div class="details">
+                    <h3>Your URL: <a href="http://localhost:5000/w/{{website.url}}">{{ website.url }}</a></h3>
+                    <h3>Domain: {{ website.customDomain ? website.customDomain : 'Upgrade Now' }}</h3>
+                </div>
+                <div class="buttons">
+                    <button *ngIf="website.customDomain"  mat-raised-button color="secondary" (click)="unsubscribe(website.customDomain)">Unsubscribe</button>
+                <button *ngIf="!website.customDomain" mat-raised-button color="primary"(click)="openDialog(website.url)">Upgrade</button>
+                </div>     
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+
