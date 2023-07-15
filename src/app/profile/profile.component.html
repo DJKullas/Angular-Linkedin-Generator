@@ -1,8 +1,12 @@
 <div class="profile-section">
     <div class="container">
         <h1 class="header">Your Websites</h1>
-    
-        <div>
+        
+        <div *ngIf="!websites || websites.length == 0">
+            <mat-spinner class="spinner"></mat-spinner>
+        </div>
+
+        <div *ngIf="websites">
             <div class="website" *ngFor="let website of websites">
                 <div class="details">
                     <h3>Your URL: <a href="http://localhost:5000/w/{{website.url}}">{{ website.url }}</a></h3>

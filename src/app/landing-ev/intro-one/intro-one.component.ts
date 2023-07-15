@@ -11,6 +11,7 @@ import { createCheckoutSession } from "@stripe/firestore-stripe-payments";
 import { environment } from '../../../environments/environment';
 import { FormControl, Validators } from '@angular/forms';
 import { FormValidators } from 'src/app/validators';
+import { take } from 'rxjs';
 
 
 @Component({
@@ -168,7 +169,7 @@ export class IntroOneComponent implements OnInit {
       // TODO unsubscribe maybe so it doesnt hit this multiple times
       this.submitError = null;
 
-      urlData.subscribe((res: any) => {
+      urlData.pipe(take(1)).subscribe((res: any) => {
         if (res) {
           console.log("URL IS TAKEN CHOOSE ANOTHER");
           this.submitError = "Desired Url taken. Please choose another.";

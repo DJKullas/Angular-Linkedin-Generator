@@ -135,7 +135,6 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  
   checkLogin() {
     this.auth.authState.subscribe((res: any) => {
       

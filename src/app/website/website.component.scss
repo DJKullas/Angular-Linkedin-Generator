@@ -1,0 +1,130 @@
+.exp-title-text {
+    font-size: 23px;
+    padding-bottom: 10px;
+}
+
+.company-text {
+    font-size: 18px;
+}
+
+.school {
+    font-size: 23px;
+}
+
+.major {
+    font-size: 18px;
+}
+
+.degree-name {
+    font-size: 18px;
+}
+
+.pad-top-ten {
+    padding-top: 20px;
+}
+
+.spinner {
+    margin: auto;
+}
+
+.logo_img {
+    width: 60px;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.header {
+    text-align: center;
+    color: white;
+}
+
+.profile-section {
+    background: url('../../assets/images/home-bg.jpg') center center;
+}
+
+.website {
+    position: fixed;
+    z-index: 100 !important;
+    width: 100% !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background-color: #dddddd;
+}
+
+.website .details {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.website h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.website p {
+    margin: 5px 0;
+    color: #888;
+}
+
+.website button {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    width: 200px;
+}
+
+.upgrade-button {
+    background-color: #4caf50;
+    color: white;
+}
+
+.unsubscribe-button {
+    background-color: #f44336;
+    color: white;
+}
+
+a {
+    color: blue;
+}
+
+.mat-dialog-actions {
+    float: right;
+}
+
+@media (max-width: 600px) {
+    .website {
+        flex-direction: column;
+    }
+
+    .website .details {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+.submit-error {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .spinner { 
+    margin: auto;
+  }

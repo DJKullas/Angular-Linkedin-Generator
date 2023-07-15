@@ -1,15 +1,19 @@
-<div *ngIf="!showSpinner && isOwner">
-  Is Owner of Site, add a banner here telling to upgrade and leading to profile page
+<div *ngIf="!showSpinner && isOwner && showUpgradeBanner">
+  <div class="website">
+    <div class="details">
+        <h3>Only you can see this banner. Upgrade now to get a custom domain!</h3>
+    </div>
+    <div class="buttons">
+    <button mat-raised-button color="primary" (click)="openDialog()">Upgrade</button>
+    </div>     
 </div>
-<div *ngIf="showSpinner">
-    Spinner
 </div>
 <div *ngIf="!showSpinner && redirectPaid">
   Thank you for purchasing a website with a custom domain. DNS updates can take up to 72 hours to register, so please wait until then for your
   website to be active. You will be emailed a link when your website is completed. Your website will look like the one below on your own domain!
 </div>
-<div *ngIf="!showSpinner && websiteType == 'creative'">
-    <header>
+<div *ngIf="websiteType == 'creative'">
+    <!-- <header>
         <div class="profile-page sidebar-collapse">
           <nav class="navbar navbar-expand-lg fixed-top navbar-transparent bg-primary" color-on-scroll="400">
             <div class="container">
@@ -28,7 +32,7 @@
             </div>
           </nav>
         </div>
-      </header>
+      </header> -->
       <div class="page-content">
         <div>
     <div class="profile-page">
@@ -37,9 +41,9 @@
         <div class="page-header-image" data-parallax="true" style="background-image: url('images/cc-bg-1.jpg')"></div>
         <div class="container">
           <div class="content-center">
-            <div class="cc-profile-image"><a href="#"><img src={{this.linkedInInfo.profilePicUrl}} alt="Image"/></a></div>
-            <div class="h2 title">{{this.linkedInInfo.name}}</div>
-            <p class="category text-white">{{this.linkedInInfo.occupation}}</p><a class="btn btn-primary smooth-scroll mr-2" href="#contact" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Hire Me</a><a class="btn btn-primary" href="#" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Download CV</a>
+            <div class="cc-profile-image"><a href="#"><img *ngIf="this?.linkedInInfo?.profile_pic_url" src={{this.linkedInInfo.profile_pic_url}} alt="Image"/></a></div>
+            <div class="h2 title">{{this.linkedInInfo.full_name}}</div>
+            <p class="category text-white pad-top-ten">{{this.linkedInInfo.headline ? this.linkedInInfo.headline : this.linkedInInfo.occupation}}</p><a class="btn btn-primary smooth-scroll mr-2" href="#contact" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Hire Me</a><a class="btn btn-primary" href="#" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Download CV</a>
           </div>
         </div>
         <div class="section">
@@ -289,14 +293,16 @@
           <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
            
             <div class="card-body cc-experience-header">
-              <p>{{exp.starts_at.month}} {{exp.starts_at.year}} - {{exp.ends_at ? exp.ends_at.month + " " + exp.ends_at.year : "Present"}}</p>
-              <div class="h5">{{exp.company}}</div>
+              <p>{{getMonthName(exp?.starts_at?.month)}} {{exp?.starts_at?.year}} - {{exp?.ends_at ? getMonthName(exp?.ends_at?.month) + " " + exp?.ends_at?.year : "Present"}}</p>
+              <div class="exp-title-text">{{exp?.title}}</div>
+              <div class="company-text">{{exp?.company}}</div>
+              <div class="location">{{exp?.location}}</div>
+              <img class="logo_img" *ngIf="exp?.logo_url" src={{exp?.logo_url}} />
             </div>
           </div>
           <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-            <div class="card-body">
-              <div class="h5">{{exp.title}}</div>
-              <p>{{exp.description}}</p>
+            <div *ngIf="exp?.description" class="card-body">
+              <p>{{exp?.description}}</p>
             </div>
           </div>
         </div>
@@ -342,15 +348,15 @@
         <div *ngFor="let edu of linkedInInfo.education" class="row">
           <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
             <div class="card-body cc-education-header">
-              <p>{{edu.starts_at.month}} {{edu.starts_at.year}} - {{edu.ends_at ? edu.ends_at.month + " " + edu.ends_at.year : "Present"}}</p>
-              <div class="h5">{{edu.degree_name}}</div>
+              <p>{{getMonthName(edu?.starts_at?.month)}} {{edu?.starts_at?.year}} - {{edu?.ends_at ? getMonthName(edu?.ends_at?.month) + " " + edu?.ends_at?.year : "Present"}}</p>
+              <div class="school">{{edu?.school}}</div>
+              <div class="major">{{edu?.field_of_study}}</div>
+              <div class="degree-name">{{edu?.degree_name}}</div>   
             </div>
           </div>
           <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-            <div class="card-body">
-              <div class="h5">{{edu.field_of_study}}</div>
-              <p class="category">{{edu.school}}</p>
-              <p>{{edu.description}}</p>
+            <div *ngIf="edu?.description" class="card-body">
+              <p>{{edu?.description}}</p>
             </div>
           </div>
         </div>

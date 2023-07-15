@@ -26,6 +26,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { LandingEvComponent } from './landing-ev/landing-ev.component';
 import { SharedModule } from './shared/shared.module';
 import { HomeModule } from "./landing-ev/landing-ev.module";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -91,6 +92,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
         MatToolbarModule,
         SharedModule,
         HomeModule,
+        MatProgressSpinnerModule,
     ]
 })
 export class AppModule { }
