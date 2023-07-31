@@ -6,6 +6,7 @@ import { LinkedinService } from '../linkedin.service';
 import { linkedInInfo } from '../models/linkedInInfo.model';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogOverviewExampleDialog } from '../profile/profile.component';
+import { PendingDialog } from './pending-dialog.component';
 
 @Component({
   selector: 'app-website',
@@ -102,6 +103,18 @@ openDialog(): void {
     });
   }
 
+  openPaidDialog(): void {
+    const dialogRef = this.dialog.open(PendingDialog, {
+      maxWidth: "800px",
+      width: "80vw",
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+  
+    });
+  }
+
   getMonthName(monthNumber: number) {
     const date = new Date();
     date.setMonth(monthNumber - 1);
@@ -168,6 +181,9 @@ openDialog(): void {
       .subscribe((params: any) => {
         console.log(params); // { category: "fiction" }
         this.redirectPaid = params['redirectPaid'];
+        if (this.redirectPaid) {
+          this.openPaidDialog();
+        }
       }
     );
   }

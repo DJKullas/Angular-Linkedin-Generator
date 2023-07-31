@@ -288,8 +288,7 @@
       
       <div *ngFor="let exp of linkedInInfo.experiences" class="card">
         
-        <div class="row">
-          
+        <div *ngIf="!exp?.description" class="row">
           <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
            
             <div class="card-body cc-experience-header">
@@ -298,6 +297,25 @@
               <div class="company-text">{{exp?.company}}</div>
               <div class="location">{{exp?.location}}</div>
               <img class="logo_img" *ngIf="exp?.logo_url" src={{exp?.logo_url}} />
+            </div>
+          </div>
+          <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
+            <div class="card-body">
+              <p>Need to fix this</p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="exp?.description" class="row">
+          
+          <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+           
+            <div class="card-body cc-experience-header">
+              <p>{{getMonthName(exp?.starts_at?.month)}} {{exp?.starts_at?.year}} - {{exp?.ends_at ? getMonthName(exp?.ends_at?.month) + " " + exp?.ends_at?.year : "Present"}}</p>
+              <div class="company-text">{{exp?.company}}</div>
+              <img class="logo_img" *ngIf="exp?.logo_url" src={{exp?.logo_url}} />
+              <div class="exp-title-text">{{exp?.title}}</div>    
+              <div class="location">{{exp?.location}}</div>
             </div>
           </div>
           <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
