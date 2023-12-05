@@ -19,6 +19,8 @@ h1 {
 }
 
 .profile-section {
+    background-size: cover;
+    height: 100vh; /* Set height to 100% of the viewport height */
     background: url('../../assets/images/home-bg.jpg') center center;
 }
 
@@ -36,7 +38,6 @@ h1 {
 
 .website .details {
     flex-grow: 1;
-    margin-right: 10px;
 }
 
 .website h3 {
@@ -53,7 +54,10 @@ h1 {
     padding: 8px 16px;
     font-size: 14px;
     border-radius: 4px;
-    width: 200px;
+    width: 110px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-family: 'Jost', sans-serif !important;
 }
 
 .upgrade-button {
@@ -74,7 +78,25 @@ a {
     float: right;
 }
 
-@media (max-width: 600px) {
+.dialog-button {
+    width: 90px;
+    height: 40px;
+}
+
+@media (max-width: 374px) {
+
+    .website .buttons {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .website button {
+        margin: 5px;
+    }
+
+}
+
+@media (max-width: 798px) {
     .website {
         flex-direction: column;
     }
@@ -83,7 +105,19 @@ a {
         margin-right: 0;
         margin-bottom: 10px;
     }
+
+    .website button {
+        width: 100%;
+    }
+
+    .website .buttons {
+        display: flex;
+    }
+
 }
+
+
+
 .submit-error {
     color: red;
     font-size: 14px;
@@ -92,4 +126,15 @@ a {
 
   .spinner { 
     margin: auto;
+  }
+
+  mat-spinner {
+    width: 30px !important;
+    height: 30px !important;
+    margin: auto !important;
+  }
+  
+  mat-spinner svg {
+    width: 30px !important;
+    height: 30px !important;
   }

@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { collection, collectionData, doc, docData, DocumentData, Firestore } from '@angular/fire/firestore';
+import { collection, collectionData, doc, docData, DocumentData, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LinkedinService } from '../linkedin.service';
 import { linkedInInfo } from '../models/linkedInInfo.model';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogOverviewExampleDialog } from '../profile/profile.component';
 import { PendingDialog } from './pending-dialog.component';
+import { ImageUploaderService } from '../image-uploader.service';
+import { getDownloadURL } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-website',
@@ -23,12 +25,13 @@ export class WebsiteComponent implements OnInit {
   currentUserId: string = "";
   ownerUserId: string = "";
   isOwner: boolean = false;
-  redirectPaid: boolean = false;
+  redirectPaid: string = "false";
   lookupKey: string = "";
   showUpgradeBanner: boolean = false;
+  currentUserEmail: string = "";
 
   constructor(private readonly auth: AngularFireAuth, private router: Router,private store: Firestore, private readonly linkedInService: LinkedinService,
-              private route: ActivatedRoute, public dialog: MatDialog) { }
+              private route: ActivatedRoute, public dialog: MatDialog, private readonly imageUploaderService: ImageUploaderService) { }
 
   getLinkedInId() {
     var urlBeforeParams = this.router.url.split("?")[0];
@@ -40,13 +43,17 @@ export class WebsiteComponent implements OnInit {
     const urlData = docData(url);
 
     urlData.subscribe((res: any) => {
-      console.log(res);
-      this.websiteType = res.websiteType;
+      console.log("subbed data", JSON.stringify(res));
+      if (res && res?.active) {
+        this.websiteType = res.websiteType;
       this.linkedInId = res.linkedInId;
       this.ownerUserId = res.userId;
       this.checkLogin();
       this.getLinkedInInfo();
       this.loadScripts();
+      } else {
+        this.router.navigate(["/"])
+      }
     });
   }
 
@@ -81,6 +88,7 @@ export class WebsiteComponent implements OnInit {
               console.log("WEBSITE R US: " + JSON.stringify(website))
 
               if (!finalPaidDomains.includes(website?.customDomain)) {
+                console.log("DO WE SHOW UPGRADE BANNER")
                 this.showUpgradeBanner = true;
               }
 
@@ -103,10 +111,14 @@ openDialog(): void {
     });
   }
 
-  openPaidDialog(): void {
+  openPaidDialog(title: string, description: string): void {
     const dialogRef = this.dialog.open(PendingDialog, {
       maxWidth: "800px",
       width: "80vw",
+      data: {
+        title,
+        description,
+      },
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -123,13 +135,54 @@ openDialog(): void {
   }
 
   getLinkedInInfo() {
-    this.linkedInService.getLinkedInInfo(this.linkedInId).subscribe((res: any) => {
-      // this.linkedInInfo.name = res.full_name;
-      // this.linkedInInfo.occupation = res.occupation;
-      // this.linkedInInfo.profilePicUrl = res.profile_pic_url;
-      this.linkedInInfo = res;
-      console.log("LINKEDIN INFO: " + JSON.stringify(this.linkedInInfo))
-      this.showSpinner = false;
+    console.log("GET LINEKDIN INFO")
+    console.log("CURENT UID", this.lookupKey)
+    const thisWebsite = doc(this.store, "urls/" + this.lookupKey);
+    docData(thisWebsite).subscribe(
+      (website: DocumentData) => {
+        console.log("INSIDE OUR SUB", JSON.stringify(website))
+        if (website?.info) {
+        console.log("WE GOT INFO", JSON.stringify(website))
+        this.linkedInInfo = website?.info;
+        this.showSpinner = false;
+      } else {
+        this.linkedInService.getLinkedInInfo(this.linkedInId).subscribe(async (res: any) => {
+          // this.linkedInInfo.name = res.full_name;
+          // this.linkedInInfo.occupation = res.occupation;
+          // this.linkedInInfo.profilePicUrl = res.profile_pic_url;
+          this.linkedInInfo = res;
+          console.log("LINKEDIN INFO: " + JSON.stringify(this.linkedInInfo))
+          this.showSpinner = false;
+          // SAVE LINKEDINDATA
+          // TODO: SAVE IMAGES
+
+          console.log("BEFORE AWAIT")
+          const downloadURL = await this.imageUploaderService.uploadImageAndGetURL(res?.profile_pic_url, this.lookupKey);
+          console.log('Download URL:', downloadURL);
+         
+          
+    
+console.log("AFTER AWAIT")
+  
+
+          // .then((imageUrlRes: any) => {
+          //   console.log("INSDIE IMAGE UPLOADER")
+          //   console.log(JSON.stringify(imageUrlRes));
+
+          res.profile_pic_url = downloadURL;
+
+            setDoc(thisWebsite, { info: res }, { merge: true }).then(async () => {
+              console.log("Set the data")
+            });
+          // });
+        });
+      }
+    });
+  }
+
+  sendContactEmail() {
+    this.linkedInService.sendContactEmail().subscribe(async (result: any) => {
+      console.log(result);
     });
   }
 
@@ -163,8 +216,10 @@ openDialog(): void {
       
       if (res) {
         this.currentUserId = res.uid;
+        this.currentUserEmail = res.email;
 
         this.isOwner = this.ownerUserId === this.currentUserId;
+        console.log("AM I OWNER", this.isOwner)
         this.setUpgradeBanner();
 
         // if (res.displayName) {
@@ -181,16 +236,18 @@ openDialog(): void {
       .subscribe((params: any) => {
         console.log(params); // { category: "fiction" }
         this.redirectPaid = params['redirectPaid'];
-        if (this.redirectPaid) {
-          this.openPaidDialog();
+        if (this.redirectPaid == "professional") {
+          this.openPaidDialog("Your Custom Domain Coming Soon", "Thank you for purchasing a website with a custom domain. DNS updates can take up to 72 hours to register, so please wait until then for your website to be active. You will be emailed a link when your website is completed. Your website will look like the one below on your own domain!");
+        } else if (this.redirectPaid == "basic") {
+          this.openPaidDialog("Your Personal Website", `Thank you for creating a personal website. It can be accessed at localhost:5000/w/${this.lookupKey}.`)
         }
       }
     );
   }
 
   ngOnInit(): void {
-    this.setIfPaid();
     this.getLinkedInId();
+    this.setIfPaid(); 
   }
 
 }

@@ -14,6 +14,8 @@ export const environment = {
   },
   production: false,
   PREMIUM_PRICE_ID: "price_1LcJHdHPSFrU3NLYZQfCMK8d",
+  // PROXYCURL_TOKEN: "fbf28f3a-27bd-4e60-ae02-a72924c3a082",
+  // IPWHOIS_KEY: "TDFCUIG7F9PIRXERY8GTBNZ5AIHPJHSI",
 };
 
 /*

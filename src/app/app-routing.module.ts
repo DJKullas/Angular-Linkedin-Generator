@@ -7,12 +7,12 @@ import { LandingComponent } from './landing/landing.component';
 import { ProfileComponent } from './profile/profile.component';
 import { WebsiteComponent } from './website/website.component';
 
-const routes: Routes = [{ path: '', component: LandingComponent },
+const routes: Routes = [
 { path: 'creative', component: CreativeCvComponent },
 { path: 'auth', component: AuthComponent },
 { path: 'w/:website', component: WebsiteComponent },
 { path: 'profile', component: ProfileComponent },
-{ path: 'test', component: LandingEvComponent }
+{ path: '', component: LandingEvComponent }
 ];
 
 @NgModule({

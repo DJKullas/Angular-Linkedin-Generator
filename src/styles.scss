@@ -3,6 +3,25 @@
 @import 'assets/css/main.css';
 @import 'assets/css/bootstrap.min.css';
 @import 'assets/css/aos.css';
+
+
+@font-face {
+    font-family: 'Jost'; // Replace with the desired font family name
+    src: url('assets/Jost-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
+$custom-font: 'Jost', sans-serif;
+
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: 'Jost', sans-serif !important; }
 @import '~firebaseui/dist/firebaseui.css';
+
+
+@import '~@angular/material/theming';
+$custom-typography: mat-typography-config(
+  $font-family: $custom-font,
+);
+@include mat-core($custom-typography);

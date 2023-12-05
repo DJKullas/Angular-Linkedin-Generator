@@ -8,6 +8,9 @@
   <p class="submit-error" *ngIf="submitError">{{submitError}}</p>
 </div>
 <div mat-dialog-actions class="mat-dialog-actions">
-  <button mat-raised-button color="secondary" (click)="onNoClick()">Cancel</button>
-  <button mat-raised-button color="primary" cdkFocusInitial (click)="checkDomain()">Upgrade</button>
+  <button class="dialog-button" mat-raised-button color="secondary" (click)="onNoClick()">Cancel</button>
+  <button class="dialog-button" mat-raised-button color="primary" cdkFocusInitial (click)="checkDomain(subId, subItemId)">
+    <mat-spinner color="accent" [diameter]="30" *ngIf="navigatingToStripe"></mat-spinner>
+    <span *ngIf="!navigatingToStripe">Upgrade</span>
+  </button>
 </div>

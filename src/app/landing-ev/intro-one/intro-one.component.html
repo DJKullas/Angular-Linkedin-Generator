@@ -3,15 +3,15 @@
     <div fxFlex="50">
       <h1 class="home-intro-title">LinkedIn Website Generator</h1>
       <div class="home-intro-desc">
-        Generate a beautiful personal website using data from your LinkedIn profile.
+        Generate a beautiful personal website using data from your LinkedIn profile
       </div>
       <div class="intro-list" fxLayout="column" fxLayoutGap="30px">
         <div fxFlex="100">
-          <mat-icon color="accent">check</mat-icon><span fxFlex="20px"></span> 100+ Custom Pipes, Directives And Components</div>
+          <mat-icon color="accent">check</mat-icon><span fxFlex="20px"></span> Increase response rates on job applications</div>
         <div fxFlex="100">
-          <mat-icon color="accent">check</mat-icon><span fxFlex="20px"></span> 4 color Themes and multi language support</div>
+          <mat-icon color="accent">check</mat-icon><span fxFlex="20px"></span> Seamlessly integrate your LinkedIn content to stay current</div>
         <div fxFlex="100">
-          <mat-icon color="accent">check</mat-icon><span fxFlex="20px"></span> Super Flexible And Customizable</div>
+          <mat-icon color="accent">check</mat-icon><span fxFlex="20px"></span> Distinguish yourself from other professionals</div>
       </div>
 
 
@@ -43,7 +43,9 @@
       </div>
       <div fxLayout="row" fxLayout.lt-md="column">
   
-<button mat-raised-button color="primary" (click)="checkDomain()">Create Website</button>
+<button mat-raised-button color="primary" (click)="validateAndScroll('pricings-section')">
+  <span>Try for Free</span>
+</button>
 <p *ngIf="submitError" class="submit-error">{{ submitError }}</p>
 
 
@@ -65,5 +67,135 @@
         <img mat-card-image src="assets/images/egret-screen.png" [style.margin]="'0 !important'">
       </div>
     </div> -->
+  </div>
+</section>
+
+<section id="pricings-section" class="home-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Choose a Plan</h2>
+      <mat-slide-toggle [(ngModel)]="isAnnualSelected" color="primary" class="mb-1">Get up to 10% discount annually</mat-slide-toggle>
+    </div>
+
+    <div fxLayout="row wrap">
+      <!-- Pricing box -->
+      <div fxFlex="100" fxFlex.gt-sm="33">
+        <mat-card class="plan-pricing text-center p-0">
+          <mat-card-title class="light-gray">
+            <div class="card-title-text">
+              <div class="">Basic</div>
+              <!-- <div class="text-sm text-muted">For New Developers</div> -->
+            </div>
+            <mat-divider></mat-divider>
+          </mat-card-title>
+          <mat-card-content>
+            <h1><strong>$
+              <span *ngIf="!isAnnualSelected">5 /Mo</span>
+                  <span *ngIf="isAnnualSelected">50 /Yr</span>
+            </strong></h1>
+            <mat-list dense class="mb-1">
+              <mat-list-item>LinkedIn Job Data</mat-list-item>
+              <mat-list-item>LinkedIn Education Data</mat-list-item>
+              <mat-list-item>One Website Template</mat-list-item>
+              <mat-list-item class="text-muted"><s>Contact Form</s></mat-list-item>
+              <mat-list-item class="text-muted"><s>Custom Domain</s></mat-list-item>
+            </mat-list>
+            <button (click)="createWebsite(false, isAnnualSelected)" mat-raised-button class="mat-accent subscribe-button">
+              <mat-spinner [diameter]="30" *ngIf="navigatingToStripeBasic"></mat-spinner>
+              <span *ngIf="!navigatingToStripeBasic">Try for Free</span>
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!-- Pricing box -->
+      <div fxFlex="100" fxFlex.gt-sm="33">
+        <mat-card class="plan-pricing text-center p-0">
+          <mat-card-title class="mat-bg-primary">
+            <div class="card-title-text">
+              <div class="">Professional</div>
+              <!-- <div class="text-sm text-muted-white">For Professional Developers</div> -->
+            </div>
+            <mat-divider></mat-divider>
+          </mat-card-title>
+          <mat-card-content>
+            <h1>
+              <strong>$ 
+                  <span *ngIf="!isAnnualSelected">25 /Mo</span>
+                  <span *ngIf="isAnnualSelected">250 /Yr</span>
+                  </strong>
+            </h1>
+            <mat-list dense class="mb-1">
+              <mat-list-item>LinkedIn Job Data</mat-list-item>
+              <mat-list-item>LinkedIn Education Data</mat-list-item>
+              <mat-list-item>Multiple Website Templates (coming soon)</mat-list-item>
+              <mat-list-item>Contact Form</mat-list-item>
+              <mat-list-item>Custom Domain</mat-list-item>
+            </mat-list>
+            <button (click)="checkDomain(isAnnualSelected)" mat-raised-button class="mat-accent subscribe-button">
+              <mat-spinner [diameter]="30" *ngIf="navigatingToStripePro" class="spinner"></mat-spinner>
+              <span *ngIf="!navigatingToStripePro">Susbcribe</span>
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!-- Pricing box -->
+      <!-- <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50">
+        <mat-card class="plan-pricing text-center p-0">
+          <mat-card-title class="light-gray">
+            <div class="card-title-text">
+              <div class="">Business</div>
+              <div class="text-sm text-muted">For Small Businesses</div>
+            </div>
+            <mat-divider></mat-divider>
+          </mat-card-title>
+          <mat-card-content>
+            <h1>
+              <strong>$ 
+                  <span *ngIf="!isAnnualSelected">{{60}} /Mo</span>
+                  <span *ngIf="isAnnualSelected">{{60 * 12 * .9}} /Yr</span>
+                  </strong>
+            </h1>
+            <mat-list dense class="mb-1">
+              <mat-list-item>100GB of Bandwidth</mat-list-item>
+              <mat-list-item>Max 1500 connection</mat-list-item>
+              <mat-list-item>2GB RAM</mat-list-item>
+              <mat-list-item>Unlimited access</mat-list-item>
+              <mat-list-item>Unlimited User</mat-list-item>
+              <mat-list-item class="text-muted">Data analytics</mat-list-item>
+            </mat-list>
+            <button mat-raised-button class="mat-accent">Choose</button>
+          </mat-card-content>
+        </mat-card>
+      </div> -->
+      <!-- Pricing box -->
+      <div fxFlex="100" fxFlex.gt-sm="33">
+        <mat-card class="plan-pricing text-center p-0">
+          <mat-card-title class="light-gray">
+            <div class="card-title-text">
+              <div class="">Enterprise</div>
+              <!-- <div class="text-sm text-muted">For Large companies</div> -->
+            </div>
+            <mat-divider></mat-divider>
+          </mat-card-title>
+          <mat-card-content>
+            <h1>
+              <strong>
+                  <span *ngIf="!isAnnualSelected">Price on Request</span>
+                  <span *ngIf="isAnnualSelected">Price on Request</span>
+                  </strong>
+            </h1>
+            <mat-list dense class="mb-1">
+              <mat-list-item>Professional Websites for All Users</mat-list-item>
+              <mat-list-item>Discounted Bulk Rates</mat-list-item>
+              <mat-list-item>Multiple Website Templates (coming soon)</mat-list-item>
+              <mat-list-item>Early Access to New Features</mat-list-item>
+              <mat-list-item>Custom Implementations</mat-list-item>
+            </mat-list>
+            <button (click)="navigateToContact()" mat-raised-button class="mat-accent subscribe-button">Contact</button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+    </div>
   </div>
 </section>

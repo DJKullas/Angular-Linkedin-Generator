@@ -7,60 +7,61 @@
 
     <div fxLayout="row wrap">
       <!-- Pricing box -->
-      <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50">
+      <div fxFlex="100" fxFlex.gt-sm="33" fxFlex.sm="50">
         <mat-card class="plan-pricing text-center p-0">
           <mat-card-title class="light-gray">
             <div class="card-title-text">
-              <div class="">Developer</div>
-              <div class="text-sm text-muted">For New Developers</div>
+              <div class="">Basic</div>
+              <!-- <div class="text-sm text-muted">For New Developers</div> -->
             </div>
             <mat-divider></mat-divider>
           </mat-card-title>
           <mat-card-content>
-            <h1><strong>FREE</strong></h1>
+            <h1><strong>
+              <span *ngIf="!isAnnualSelected">5 /Mo</span>
+                  <span *ngIf="isAnnualSelected">50 /Yr</span>
+            </strong></h1>
             <mat-list dense class="mb-1">
-              <mat-list-item>10GB of Bandwidth</mat-list-item>
-              <mat-list-item>Max 50 connection</mat-list-item>
-              <mat-list-item>512MB RAM</mat-list-item>
-              <mat-list-item class="text-muted">Unlimited access</mat-list-item>
-              <mat-list-item class="text-muted">Unlimited User</mat-list-item>
-              <mat-list-item class="text-muted">Data analytics</mat-list-item>
+              <mat-list-item>LinkedIn Job Data</mat-list-item>
+              <mat-list-item>LinkedIn Education Data</mat-list-item>
+              <mat-list-item>One Website Template</mat-list-item>
+              <mat-list-item class="text-muted">Contact Form</mat-list-item>
+              <mat-list-item class="text-muted">Custom Domain</mat-list-item>
             </mat-list>
-            <button mat-raised-button class="mat-accent">Choose</button>
+            <button mat-raised-button class="mat-accent">Try Free</button>
           </mat-card-content>
         </mat-card>
       </div>
       <!-- Pricing box -->
-      <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50">
+      <div fxFlex="100" fxFlex.gt-sm="33" fxFlex.sm="50">
         <mat-card class="plan-pricing text-center p-0">
           <mat-card-title class="mat-bg-primary">
             <div class="card-title-text">
-              <div class="">Starter</div>
-              <div class="text-sm text-muted-white">For Professional Developers</div>
+              <div class="">Professional</div>
+              <!-- <div class="text-sm text-muted-white">For Professional Developers</div> -->
             </div>
             <mat-divider></mat-divider>
           </mat-card-title>
           <mat-card-content>
             <h1>
               <strong>$ 
-                  <span *ngIf="!isAnnualSelected">{{30}} /Mo</span>
-                  <span *ngIf="isAnnualSelected">{{30 * 12 * .9}} /Yr</span>
+                  <span *ngIf="!isAnnualSelected">25 /Mo</span>
+                  <span *ngIf="isAnnualSelected">250 /Yr</span>
                   </strong>
             </h1>
             <mat-list dense class="mb-1">
-              <mat-list-item>100GB of Bandwidth</mat-list-item>
-              <mat-list-item>Max 500 connection</mat-list-item>
-              <mat-list-item>1GB RAM</mat-list-item>
-              <mat-list-item>Unlimited access</mat-list-item>
-              <mat-list-item class="text-muted">Unlimited User</mat-list-item>
-              <mat-list-item class="text-muted">Data analytics</mat-list-item>
+              <mat-list-item>LinkedIn Job Data</mat-list-item>
+              <mat-list-item>LinkedIn Education Data</mat-list-item>
+              <mat-list-item>Multiple Website Templates (coming soon)</mat-list-item>
+              <mat-list-item>Contact Form</mat-list-item>
+              <mat-list-item>Custom Domain</mat-list-item>
             </mat-list>
-            <button mat-raised-button class="mat-accent">Choose</button>
+            <button mat-raised-button class="mat-accent">Subscribe</button>
           </mat-card-content>
         </mat-card>
       </div>
       <!-- Pricing box -->
-      <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50">
+      <!-- <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50">
         <mat-card class="plan-pricing text-center p-0">
           <mat-card-title class="light-gray">
             <div class="card-title-text">
@@ -87,33 +88,32 @@
             <button mat-raised-button class="mat-accent">Choose</button>
           </mat-card-content>
         </mat-card>
-      </div>
+      </div> -->
       <!-- Pricing box -->
-      <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50">
+      <div fxFlex="100" fxFlex.gt-sm="33" fxFlex.sm="50">
         <mat-card class="plan-pricing text-center p-0">
           <mat-card-title class="light-gray">
             <div class="card-title-text">
               <div class="">Enterprise</div>
-              <div class="text-sm text-muted">For Large companies</div>
+              <!-- <div class="text-sm text-muted">For Large companies</div> -->
             </div>
             <mat-divider></mat-divider>
           </mat-card-title>
           <mat-card-content>
             <h1>
-              <strong>$ 
-                  <span *ngIf="!isAnnualSelected">{{160}} /Mo</span>
-                  <span *ngIf="isAnnualSelected">{{160 * 12 * .9}} /Yr</span>
+              <strong>
+                  <span *ngIf="!isAnnualSelected">Contact for Pricing</span>
+                  <span *ngIf="isAnnualSelected">Contact for Pricing</span>
                   </strong>
             </h1>
             <mat-list dense class="mb-1">
-              <mat-list-item>1000GB of Bandwidth</mat-list-item>
-              <mat-list-item>Max 5000 connection</mat-list-item>
-              <mat-list-item>8GB RAM</mat-list-item>
-              <mat-list-item>Unlimited access</mat-list-item>
-              <mat-list-item>Unlimited User</mat-list-item>
-              <mat-list-item>Data analytics</mat-list-item>
+              <mat-list-item>Professional Websites for All Users</mat-list-item>
+              <mat-list-item>Discounted Bulk Rates</mat-list-item>
+              <mat-list-item>Multiple Website Templates (coming soon)</mat-list-item>
+              <mat-list-item>Early Access to New Features</mat-list-item>
+              <mat-list-item>Custom Implementations</mat-list-item>
             </mat-list>
-            <button mat-raised-button class="mat-accent">Choose</button>
+            <button mat-raised-button class="mat-accent">Contact</button>
           </mat-card-content>
         </mat-card>
       </div>

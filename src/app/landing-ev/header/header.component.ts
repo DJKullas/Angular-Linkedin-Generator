@@ -1,6 +1,8 @@
 import { Component, OnInit, HostListener, HostBinding, Inject, Input } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { WINDOW_PROVIDERS, WINDOW } from '../../shared/helpers/window.helper';
+import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-header',
@@ -11,10 +13,17 @@ export class HeaderComponent implements OnInit {
   isFixed: boolean | undefined;
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    @Inject(WINDOW) private window: Window
+    @Inject(WINDOW) private window: Window,
+    private router: Router,
+    private auth: AngularFireAuth,
   ) { }
 
+  @Input()
+    parent: string = "";
+    loggedIn: boolean = false;
+
   ngOnInit() {
+    this.checkLogin();
   }
   @HostListener("window:scroll", [])
   onWindowScroll() {
@@ -32,8 +41,28 @@ export class HeaderComponent implements OnInit {
     this.menuOpened = !this.menuOpened
   }
 
+  navigateToProfile() {
+    this.router.navigate([`profile`]);
+  }
+
   buyEgret() {
     this.window.open('https://themeforest.net/item/egret-angular-4-material-design-admin-template/20161805?ref=mh_rafi');
   }
+
+  checkLogin() {
+    this.auth.authState.subscribe((res: any) => {
+      
+      if (res) {
+        console.log("Here");
+        this.loggedIn = true;
+        console.log(res);
+      } else {
+        console.log("Not Here");
+      }
+      
+
+    });
+  }
+
 
 }

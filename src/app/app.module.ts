@@ -27,6 +27,7 @@ import { LandingEvComponent } from './landing-ev/landing-ev.component';
 import { SharedModule } from './shared/shared.module';
 import { HomeModule } from "./landing-ev/landing-ev.module";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -83,6 +84,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideAuth(() => getAuth()),
         provideFirestore(() => getFirestore()),
+        provideStorage(() => getStorage()),
         AngularFireAuthModule,
         FirebaseUIModule.forRoot(firebaseUiAuthConfig),
         MatRadioModule,

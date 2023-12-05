@@ -1,23 +1,55 @@
+<div>
+    <!-- Do not show this for paid users custom domain -->
+    <app-header [parent]="'website'"></app-header>
+  </div>
 <div class="profile-section">
     <div class="container">
         <h1 class="header">Your Websites</h1>
         
-        <div *ngIf="!websites || websites.length == 0">
+        <!-- <div *ngIf="!(basicWebsites?.length > 0 || professionalWebsites?.length > 0)">
             <mat-spinner class="spinner"></mat-spinner>
+        </div> -->
+
+        <div *ngIf="basicWebsites">
+            <div class="website" *ngFor="let website of basicWebsites">
+                <div class="details">
+                    <h3>Your URL: <a href="http://localhost:5000/w/{{website.url}}">{{ website.url }}</a></h3>
+                    <h3>Domain: Upgrade Now</h3>
+                </div>
+                <div class="buttons">
+                    <button  mat-raised-button color="accent" (click)="refreshLinkedInInfo(website.url, website.linkedInId)">Refresh Data</button>
+                    <button  mat-raised-button color="secondary" (click)="unsubscribe(website.subId)">Unsubscribe</button>
+                <button  *ngIf="!website.customDomain" mat-raised-button color="primary"(click)="openDialog(website.url, website.subId, website.subItemId)">Upgrade</button>
+                </div>     
+            </div>
         </div>
 
-        <div *ngIf="websites">
+        <div *ngIf="professionalWebsites">
+            <div class="website" *ngFor="let website of professionalWebsites">
+                <div class="details">
+                    <h3>Your URL: <a href="http://localhost:5000/w/{{website.url}}">{{ website.url }}</a></h3>
+                    <h3>Domain: <a href="http://{{website.customDomain}}">{{website.customDomain}}</a></h3>
+                </div>
+                <div class="buttons">
+                    <button  mat-raised-button color="accent" (click)="refreshLinkedInInfo(website.url, website.linkedInId)">Refresh Data</button>
+                    <button  mat-raised-button color="secondary" (click)="unsubscribe(website.subId)">Unsubscribe</button>
+                </div>     
+            </div>
+        </div>
+
+        <!-- <div *ngIf="websites">
             <div class="website" *ngFor="let website of websites">
                 <div class="details">
                     <h3>Your URL: <a href="http://localhost:5000/w/{{website.url}}">{{ website.url }}</a></h3>
                     <h3>Domain: {{ website.customDomain ? website.customDomain : 'Upgrade Now' }}</h3>
                 </div>
                 <div class="buttons">
+                    <button  mat-raised-button color="accent" (click)="refreshLinkedInInfo(website.url, website.linkedInId)">Refresh Data</button>
                     <button *ngIf="website.customDomain"  mat-raised-button color="secondary" (click)="unsubscribe(website.customDomain)">Unsubscribe</button>
                 <button *ngIf="!website.customDomain" mat-raised-button color="primary"(click)="openDialog(website.url)">Upgrade</button>
                 </div>     
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 

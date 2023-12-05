@@ -67,6 +67,7 @@ h1 {
     border-radius: 4px;
     margin-bottom: 10px;
     background-color: #dddddd;
+    top: 60px;
 }
 
 .website .details {
@@ -86,9 +87,12 @@ h1 {
 
 .website button {
     padding: 8px 16px;
-    font-size: 14px;
+    font-size: 18px;
     border-radius: 4px;
     width: 200px;
+    display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .upgrade-button {
@@ -110,13 +114,30 @@ a {
 }
 
 @media (max-width: 600px) {
-    .website {
-        flex-direction: column;
-    }
+    // .website {
+    //     flex-direction: column;
+    // }
 
     .website .details {
-        margin-right: 0;
+        margin-right: 10px;
         margin-bottom: 10px;
+    }
+
+    .website button {
+        padding: 8px 16px;
+        font-size: 12px;
+        border-radius: 4px;
+        width: 100px;
+        height: 30px;
+    }
+
+    .website h3 {
+        margin: 0;
+        font-size: 12px;
+    }
+
+    .website {
+        padding: 5px;
     }
 }
 .submit-error {
@@ -131,4 +152,9 @@ a {
 
   .mat-dialog-actions {
     float: right;
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 10px;
 }

@@ -95,10 +95,10 @@ export class LandingComponent implements OnInit {
 
 
 
-          setDoc(url, { websiteType: this.websiteType, customDomain: this.customDomain, userId: this.currentUserId, linkedInId: id }).then(() => {
+          setDoc(url, { websiteType: this.websiteType, customDomain: this.customDomain, userId: this.currentUserId, linkedInId: id }, { merge: true }).then(() => {
             console.log("set doc");
           }).then(() => {
-            setDoc(user, { customDomain: this.customDomain, url: this.userSelectedUrl }).then(async () => {
+            setDoc(user, { customDomain: this.customDomain, url: this.userSelectedUrl }, { merge: true }).then(async () => {
               console.log("set user url");
   
               if (this.customDomain != "") {
@@ -197,7 +197,7 @@ export class LandingComponent implements OnInit {
 
   ngOnInit(): void {
     const test = doc(this.store, "test/1");
-    setDoc(test, {theKey: "TheValue"});
+    setDoc(test, {theKey: "TheValue"}, { merge: true });
 
     this.checkLogin();
   }

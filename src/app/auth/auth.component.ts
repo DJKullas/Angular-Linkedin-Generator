@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
-import { createCheckoutSession, getStripePayments } from '@stripe/firestore-stripe-payments';
-import { getApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
+import { LinkedinService } from '../linkedin.service';
 
 @Component({
   selector: 'app-auth',
-  templateUrl: './auth.component.html',
+templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
@@ -20,13 +19,11 @@ export class AuthComponent implements OnInit {
   currentUsername: string = "";
   linkedInId: string = "";
   navigateTo: string = "";
-  app = getApp();
-  payments = getStripePayments(this.app, {
-    productsCollection: "products",
-    customersCollection: "customers",
-  });
+  useCustomDomain: boolean = false;
+  isAnnualSelected: boolean = false;
 
-  constructor(private router: Router,  private route: ActivatedRoute, private store: Firestore, private auth: AngularFireAuth) { }
+  constructor(private router: Router,  private route: ActivatedRoute, private store: Firestore, private auth: AngularFireAuth,
+    private readonly linkedInService: LinkedinService) { }
 
   successCallback(event: any) {
 
@@ -43,30 +40,25 @@ export class AuthComponent implements OnInit {
   
       this.websiteType = "creative";
   
-      setDoc(url, { websiteType: this.websiteType, customDomain: this.customDomain, userId: this.currentUserId, linkedInId: this.linkedInId }).then(() => {
+      setDoc(url, { id: this.userSelectedUrl, websiteType: this.websiteType, customDomain: this.customDomain, userId: this.currentUserId, linkedInId: this.linkedInId }, { merge: true }).then(() => {
         console.log("set doc");
       }).then(() => {
-        setDoc(user, { customDomain: this.customDomain, url: this.userSelectedUrl }).then(async () => {
+        const userUpdateData: any = { url: this.userSelectedUrl };
+            if (this.useCustomDomain) {
+              userUpdateData.customDomain = this.customDomain;
+            }
+        setDoc(user, userUpdateData, { merge: true }).then(async () => {
           console.log("set user url");
   
-          if (this.customDomain != "") {
-            console.log("INSIDE THE CUSTOM DOMAIN");
-            console.log("Paymenyts: " + JSON.stringify(this.payments));
-            console.log("PRICE: " + environment.PREMIUM_PRICE_ID);
-            const session = await createCheckoutSession(this.payments, {
-              price: environment.PREMIUM_PRICE_ID,
-              success_url: `http://localhost:5000/w/${this.userSelectedUrl}?redirectPaid=true`,
-              cancel_url: "http://localhost:5000",
-            });
+          const priceId = this.linkedInService.getPriceId(this.useCustomDomain, this.isAnnualSelected);
+
+          const session = await this.linkedInService.createStripeCheckoutSession(priceId, this.customDomain, this.userSelectedUrl, this.useCustomDomain)  
   
             // TODO: ADD URL PARAM TO SUCCESSFUL PAYMENT TO show dialog saying custom site takes 72 hours
   
             console.log("Session: " + JSON.stringify(session));
   
             window.location.assign(session.url);
-          } else {
-            this.router.navigate([`w/${this.userSelectedUrl}`]);
-          }
   
         
           // redirect to website page
@@ -109,6 +101,8 @@ export class AuthComponent implements OnInit {
       this.customDomain = params['customDomain'];
       this.linkedInId = params['linkedInId'];
       this.navigateTo = params['navigateTo'];
+      this.isAnnualSelected = params['isAnnualSelected'];
+      this.useCustomDomain = params['useCustomDomain'];
     }
   );
   }

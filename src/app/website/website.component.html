@@ -1,3 +1,8 @@
+<div>
+  <!-- Do not show this for paid users custom domain -->
+  <app-header [parent]="'website'"></app-header>
+</div>
+
 <div *ngIf="!showSpinner && isOwner && showUpgradeBanner">
   <div class="website">
     <div class="details">
@@ -43,28 +48,29 @@
           <div class="content-center">
             <div class="cc-profile-image"><a href="#"><img *ngIf="this?.linkedInInfo?.profile_pic_url" src={{this.linkedInInfo.profile_pic_url}} alt="Image"/></a></div>
             <div class="h2 title">{{this.linkedInInfo.full_name}}</div>
-            <p class="category text-white pad-top-ten">{{this.linkedInInfo.headline ? this.linkedInInfo.headline : this.linkedInInfo.occupation}}</p><a class="btn btn-primary smooth-scroll mr-2" href="#contact" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Hire Me</a><a class="btn btn-primary" href="#" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Download CV</a>
+            <p class="category text-white pad-top-ten">{{this.linkedInInfo.headline ? this.linkedInInfo.headline : this.linkedInInfo.occupation}}</p>
+            <!-- <a class="btn btn-primary smooth-scroll mr-2" href="#contact" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Hire Me</a><a class="btn btn-primary" href="#" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Download CV</a> -->
           </div>
         </div>
-        <div class="section">
+        <!-- <div class="section">
           <div class="container">
             <div class="button-container"><a class="btn btn-default btn-round btn-lg btn-icon" href="#" rel="tooltip" title="Follow me on Facebook"><i class="fa fa-facebook"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="#" rel="tooltip" title="Follow me on Twitter"><i class="fa fa-twitter"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="#" rel="tooltip" title="Follow me on Google+"><i class="fa fa-google-plus"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="#" rel="tooltip" title="Follow me on Instagram"><i class="fa fa-instagram"></i></a></div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     </div>
-    <div class="section" id="about">
+    <div class="section" id="about" *ngIf="this.linkedInInfo.summary">
     <div class="container">
       <div class="card" data-aos="fade-up" data-aos-offset="10">
         <div class="row">
-          <div class="col-lg-6 col-md-12">
+          <div class="col-lg-12 col-md-12">
             <div class="card-body">
-              <div class="h4 mt-0 title">About</div>
+              <div class="h4 mt-0 title about-header">About</div>
               <p>{{this.linkedInInfo.summary}}</p>
                </div>
           </div>
-          <div class="col-lg-6 col-md-12">
+          <!-- <div class="col-lg-6 col-md-12">
             <div class="card-body">
               <div class="h4 mt-0 title">Basic Information</div>
               <div class="row">
@@ -88,12 +94,12 @@
                 <div class="col-sm-8">English, German, French</div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
     </div>
-    <div class="section" id="skill">
+    <!-- <div class="section" id="skill" *ngIf="">
     <div class="container">
       <div class="h4 text-center mb-4 title">Professional Skills</div>
       <div class="card" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
@@ -149,8 +155,8 @@
         </div>
       </div>
     </div>
-    </div>
-    <div class="section" id="portfolio">
+    </div> -->
+    <!-- <div class="section" id="portfolio">
     <div class="container">
       <div class="row">
         <div class="col-md-6 ml-auto mr-auto">
@@ -281,140 +287,152 @@
         </div>
       </div>
     </div>
-    </div>
-    <div class="section" id="experience">
+    </div> -->
+    <div class="section" id="experience" *ngIf="linkedInInfo?.experiences?.length > 0">
     <div class="container cc-experience">
       <div class="h4 text-center mb-4 title">Work Experience</div>
       
       <div *ngFor="let exp of linkedInInfo.experiences" class="card">
         
         <div *ngIf="!exp?.description" class="row">
-          <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+          <div class="col-md-12 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
            
-            <div class="card-body cc-experience-header">
-              <p>{{getMonthName(exp?.starts_at?.month)}} {{exp?.starts_at?.year}} - {{exp?.ends_at ? getMonthName(exp?.ends_at?.month) + " " + exp?.ends_at?.year : "Present"}}</p>
+            <div class="card-body cc-experience-header no-desc">
               <div class="exp-title-text">{{exp?.title}}</div>
               <div class="company-text">{{exp?.company}}</div>
+              <div>{{getMonthName(exp?.starts_at?.month)}} {{exp?.starts_at?.year}} - {{exp?.ends_at ? getMonthName(exp?.ends_at?.month) + " " + exp?.ends_at?.year : "Present"}}</div>
               <div class="location">{{exp?.location}}</div>
-              <img class="logo_img" *ngIf="exp?.logo_url" src={{exp?.logo_url}} />
-            </div>
-          </div>
-          <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-            <div class="card-body">
-              <p>Need to fix this</p>
+              <!-- <img class="logo_img" *ngIf="exp?.logo_url" src={{exp?.logo_url}} /> -->
             </div>
           </div>
         </div>
 
         <div *ngIf="exp?.description" class="row">
           
-          <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+          <div class="col-md-4 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
            
             <div class="card-body cc-experience-header">
-              <p>{{getMonthName(exp?.starts_at?.month)}} {{exp?.starts_at?.year}} - {{exp?.ends_at ? getMonthName(exp?.ends_at?.month) + " " + exp?.ends_at?.year : "Present"}}</p>
+              <div class="exp-title-text">{{exp?.title}}</div>
               <div class="company-text">{{exp?.company}}</div>
-              <img class="logo_img" *ngIf="exp?.logo_url" src={{exp?.logo_url}} />
-              <div class="exp-title-text">{{exp?.title}}</div>    
+              <div>{{getMonthName(exp?.starts_at?.month)}} {{exp?.starts_at?.year}} - {{exp?.ends_at ? getMonthName(exp?.ends_at?.month) + " " + exp?.ends_at?.year : "Present"}}</div>
               <div class="location">{{exp?.location}}</div>
+              <!-- <img class="logo_img" *ngIf="exp?.logo_url" src={{exp?.logo_url}} /> -->
             </div>
           </div>
-          <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
+          <div class="col-md-8" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
             <div *ngIf="exp?.description" class="card-body">
-              <p>{{exp?.description}}</p>
+              <p [innerText]="exp?.description"></p>
             </div>
           </div>
         </div>
       </div>
-      <!-- <div class="card">
-        <div class="row">
-          <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-            <div class="card-body cc-experience-header">
-              <p>April 2014 - March 2016</p>
-              <div class="h5">WebNote</div>
+    </div>
+    </div>
+    <div class="section" *ngIf="linkedInInfo?.education?.length > 0">
+      <div class="container cc-experience">
+        <div class="h4 text-center mb-4 title">Education</div>
+        
+        <div *ngFor="let edu of linkedInInfo.education" class="card">
+          
+          <div *ngIf="!edu?.description" class="row">
+            <div class="col-md-12 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+              <div class="card-body cc-experience-header no-desc">
+                <div class="school">{{edu?.school}}</div>
+                <div class="degree-name">{{edu?.degree_name}}</div>  
+                <div class="major">{{edu?.field_of_study}}</div>
+                <div>{{getMonthName(edu?.starts_at?.month)}} {{edu?.starts_at?.year}} - {{edu?.ends_at ? getMonthName(edu?.ends_at?.month) + " " + edu?.ends_at?.year : "Present"}}</div>
+              </div>
             </div>
           </div>
-          <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-            <div class="card-body">
-              <div class="h5">Web Developer</div>
-              <p>Euismod massa scelerisque suspendisse fermentum habitant vitae ullamcorper magna quam iaculis, tristique sapien taciti mollis interdum sagittis libero nunc inceptos tellus, hendrerit vel eleifend primis lectus quisque cubilia sed mauris. Lacinia porta vestibulum diam integer quisque eros pulvinar curae, curabitur feugiat arcu vivamus parturient aliquet laoreet at, eu etiam pretium molestie ultricies sollicitudin dui.</p>
+  
+          <div *ngIf="edu?.description" class="row">
+            
+            <div class="col-md-4 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+             
+              <div class="card-body cc-experience-header">
+                <div class="school">{{edu?.school}}</div>
+                <div class="degree-name">{{edu?.degree_name}}</div>  
+                <div class="major">{{edu?.field_of_study}}</div>
+                <div>{{getMonthName(edu?.starts_at?.month)}} {{edu?.starts_at?.year}} - {{edu?.ends_at ? getMonthName(edu?.ends_at?.month) + " " + edu?.ends_at?.year : "Present"}}</div>
+              </div>
+            </div>
+            <div class="col-md-8" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
+              <div *ngIf="edu?.description" class="card-body">
+                <p [innerText]="edu?.description"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+    <div class="section" *ngIf="linkedInInfo?.certifications?.length > 0">
+      <div class="container cc-experience">
+        <div class="h4 text-center mb-4 title">Certifications</div>
+        
+        <div *ngFor="let cert of linkedInInfo.certifications" class="card">
+          
+          <div class="row">
+            <div class="col-md-12 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+              <div class="card-body cc-experience-header no-desc">
+                <div class="school">{{cert?.authority}}</div>
+                <div class="degree-name">{{cert?.name}}</div>  
+                <div>Issued {{getMonthName(cert?.starts_at?.month)}} {{cert?.starts_at?.year}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+    
+
+
+
+    <div class="section" id="experience" *ngIf="linkedInInfo?.volunteer_work?.length > 0">
+      <div class="container cc-experience">
+        <div class="h4 text-center mb-4 title">Volunteer Work</div>
+        
+        <div *ngFor="let vol of linkedInInfo.volunteer_work" class="card">
+          
+          <div *ngIf="!vol?.description" class="row">
+            <div class="col-md-12 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+             
+              <div class="card-body cc-experience-header no-desc">
+                <div class="exp-title-text">{{vol?.title}}</div>
+                <div class="company-text">{{vol?.company}}</div>
+                <div>{{getMonthName(vol?.starts_at?.month)}} {{vol?.starts_at?.year}} - {{vol?.ends_at ? getMonthName(vol?.ends_at?.month) + " " + vol?.ends_at?.year : "Present"}}</div>
+                <div class="location">{{vol?.cause}}</div>
+                <div class="location">{{vol?.location}}</div>
+                <!-- <img class="logo_img" *ngIf="exp?.logo_url" src={{exp?.logo_url}} /> -->
+              </div>
+            </div>
+          </div>
+  
+          <div *ngIf="vol?.description" class="row">
+            
+            <div class="col-md-4 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+             
+              <div class="card-body cc-experience-header">
+                <div class="exp-title-text">{{vol?.title}}</div>
+                <div class="company-text">{{vol?.company}}</div>
+                <div>{{getMonthName(vol?.starts_at?.month)}} {{vol?.starts_at?.year}} - {{vol?.ends_at ? getMonthName(vol?.ends_at?.month) + " " + vol?.ends_at?.year : "Present"}}</div>
+                <div class="location">{{vol?.cause}}</div>
+                <div class="location">{{vol?.location}}</div>
+                <!-- <img class="logo_img" *ngIf="exp?.logo_url" src={{exp?.logo_url}} /> -->
+              </div>
+            </div>
+            <div class="col-md-8" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
+              <div *ngIf="vol?.description" class="card-body">
+                <p [innerText]="vol?.description"></p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="card">
-        <div class="row">
-          <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-            <div class="card-body cc-experience-header">
-              <p>April 2013 - February 2014</p>
-              <div class="h5">WEBM</div>
-            </div>
-          </div>
-          <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-            <div class="card-body">
-              <div class="h5">Intern</div>
-              <p>Euismod massa scelerisque suspendisse fermentum habitant vitae ullamcorper magna quam iaculis, tristique sapien taciti mollis interdum sagittis libero nunc inceptos tellus, hendrerit vel eleifend primis lectus quisque cubilia sed mauris. Lacinia porta vestibulum diam integer quisque eros pulvinar curae, curabitur feugiat arcu vivamus parturient aliquet laoreet at, eu etiam pretium molestie ultricies sollicitudin dui.</p>
-            </div>
-          </div>
-        </div>
-      </div> -->
-    </div>
-    </div>
-    <div class="section">
-    <div class="container cc-education">
-      <div class="h4 text-center mb-4 title">Education</div>
-      <div class="card">
-        <div *ngFor="let edu of linkedInInfo.education" class="row">
-          <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-            <div class="card-body cc-education-header">
-              <p>{{getMonthName(edu?.starts_at?.month)}} {{edu?.starts_at?.year}} - {{edu?.ends_at ? getMonthName(edu?.ends_at?.month) + " " + edu?.ends_at?.year : "Present"}}</p>
-              <div class="school">{{edu?.school}}</div>
-              <div class="major">{{edu?.field_of_study}}</div>
-              <div class="degree-name">{{edu?.degree_name}}</div>   
-            </div>
-          </div>
-          <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-            <div *ngIf="edu?.description" class="card-body">
-              <p>{{edu?.description}}</p>
-            </div>
-          </div>
-        </div>
       </div>
-      <!-- <div class="card">
-        <div class="row">
-          <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-            <div class="card-body cc-education-header">
-              <p>2009 - 2013</p>
-              <div class="h5">Bachelor's Degree</div>
-            </div>
-          </div>
-          <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-            <div class="card-body">
-              <div class="h5">Bachelor of Computer Science</div>
-              <p class="category">University of Computer Science</p>
-              <p>Euismod massa scelerisque suspendisse fermentum habitant vitae ullamcorper magna quam iaculis, tristique sapien taciti mollis interdum sagittis libero nunc inceptos tellus, hendrerit vel eleifend primis lectus quisque cubilia sed mauris. Lacinia porta vestibulum diam integer quisque eros pulvinar curae, curabitur feugiat arcu vivamus parturient aliquet laoreet at, eu etiam pretium molestie ultricies sollicitudin dui.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="row">
-          <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
-            <div class="card-body cc-education-header">
-              <p>2007 - 2009</p>
-              <div class="h5">High School</div>
-            </div>
-          </div>
-          <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-            <div class="card-body">
-              <div class="h5">Science and Mathematics</div>
-              <p class="category">School of Secondary board</p>
-              <p>Euismod massa scelerisque suspendisse fermentum habitant vitae ullamcorper magna quam iaculis, tristique sapien taciti mollis interdum sagittis libero nunc inceptos tellus, hendrerit vel eleifend primis lectus quisque cubilia sed mauris. Lacinia porta vestibulum diam integer quisque eros pulvinar curae, curabitur feugiat arcu vivamus parturient aliquet laoreet at, eu etiam pretium molestie ultricies sollicitudin dui.</p>
-            </div>
-          </div>
-        </div>
-      </div> -->
-    </div>
-    </div>
+
+
+
+    
     <div class="section" id="reference">
     <div class="container cc-reference">
       <div class="h4 mb-4 text-center title">References</div>
@@ -464,7 +482,7 @@
       </div>
     </div>
     </div>
-    <div class="section" id="contact">
+    <div *ngIf="this.currentUserEmail != ''" class="section" id="contact">
     <div class="cc-contact-information" style="background-image: url('images/staticmap.png')">
       <div class="container">
         <div class="cc-contact">
@@ -507,7 +525,7 @@
                         </div>
                         <div class="row">
                           <div class="col">
-                            <button class="btn btn-primary" type="submit">Send</button>
+                            <button (click)="sendContactEmail()" class="btn btn-primary" type="submit">Send</button>
                           </div>
                         </div>
                       </form>
