@@ -97,15 +97,15 @@ export class ProfileComponent implements OnInit {
               console.log("FINAL PAID DOMAINDS: " + JSON.stringify(finalPaidDomains))
 
               const basicSubs = result.filter((x: any) => {
-                return x?.items?.data[0]?.plan?.id == "price_1NsTwEHPSFrU3NLYFzpAiuxu" || 
-                x?.items?.data[0]?.plan?.id == "price_1NsTsxHPSFrU3NLYs4GVDF3u"; 
+                return x?.items?.data[0]?.plan?.id == environment.BASIC_ANNUAL_PRICE || 
+                x?.items?.data[0]?.plan?.id == environment.BASIC_MONTHLY_PRICE; 
               });
 
               console.log("Basic subs", JSON.stringify(basicSubs))
 
               const proSubs = result.filter((x: any) => {
-                return x?.items?.data[0]?.plan?.id == "price_1NsTx2HPSFrU3NLYohRnQ4f2" || 
-                x?.items?.data[0]?.plan?.id == "price_1NsTwgHPSFrU3NLYBoKITUDT"; 
+                return x?.items?.data[0]?.plan?.id == environment.PREMIUM_ANNUAL_PRICE || 
+                x?.items?.data[0]?.plan?.id == environment.PREMIUM_MONTHLY_PRICE; 
               });
 
               this.websites = [];

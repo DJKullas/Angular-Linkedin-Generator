@@ -194,7 +194,6 @@ validateAndScroll(id: any) {
               // if (useCustomDomain) {
                 console.log("INSIDE THE CUSTOM DOMAIN");
                 // console.log("Paymenyts: " + JSON.stringify(this.payments));
-                console.log("PRICE: " + environment.PREMIUM_PRICE_ID);
 
                 const priceId = this.linkedInService.getPriceId(useCustomDomain, isAnnualSelected);
                 const domainToAdd = useCustomDomain ? this.customDomain : null;

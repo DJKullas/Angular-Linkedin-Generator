@@ -101,24 +101,24 @@ export class LandingComponent implements OnInit {
             setDoc(user, { customDomain: this.customDomain, url: this.userSelectedUrl }, { merge: true }).then(async () => {
               console.log("set user url");
   
-              if (this.customDomain != "") {
-                console.log("INSIDE THE CUSTOM DOMAIN");
-                console.log("Paymenyts: " + JSON.stringify(this.payments));
-                console.log("PRICE: " + environment.PREMIUM_PRICE_ID);
-                const session = await createCheckoutSession(this.payments, {
-                  price: environment.PREMIUM_PRICE_ID,
-                  success_url: `http://localhost:3000/w/${this.userSelectedUrl}?redirectPaid=true`,
-                  cancel_url: "http://localhost:3000",
-                });
+              // if (this.customDomain != "") {
+              //   console.log("INSIDE THE CUSTOM DOMAIN");
+              //   console.log("Paymenyts: " + JSON.stringify(this.payments));
+              //   console.log("PRICE: " + environment.PREMIUM_PRICE_ID);
+              //   const session = await createCheckoutSession(this.payments, {
+              //     price: environment.PREMIUM_PRICE_ID,
+              //     success_url: `http://localhost:3000/w/${this.userSelectedUrl}?redirectPaid=true`,
+              //     cancel_url: "http://localhost:3000",
+              //   });
 
-                // TODO: ADD URL PARAM TO SUCCESSFUL PAYMENT TO show dialog saying custom site takes 72 hours
+              //   // TODO: ADD URL PARAM TO SUCCESSFUL PAYMENT TO show dialog saying custom site takes 72 hours
 
-                console.log("Session: " + JSON.stringify(session));
+              //   console.log("Session: " + JSON.stringify(session));
 
-                window.location.assign(session.url);
-              } else {
-                this.router.navigate([`w/${this.userSelectedUrl}`]);
-              }
+              //   window.location.assign(session.url);
+              // } else {
+              //   this.router.navigate([`w/${this.userSelectedUrl}`]);
+              // }
 
               
 

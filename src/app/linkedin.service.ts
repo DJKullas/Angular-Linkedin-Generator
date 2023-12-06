@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import { getStripePayments } from "@stripe/firestore-stripe-payments";
 import { createCheckoutSession } from "@stripe/firestore-stripe-payments";
 import { getApp } from "@firebase/app";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -35,15 +36,15 @@ export class LinkedinService {
   getPriceId(useCustomDomain: boolean, isAnnualSelected: boolean) {
     if(useCustomDomain) {
       if (isAnnualSelected) {
-        return "price_1NsTx2HPSFrU3NLYohRnQ4f2"
+        return environment.PREMIUM_ANNUAL_PRICE;
       } else {
-        return "price_1NsTwgHPSFrU3NLYBoKITUDT";
+        return environment.PREMIUM_MONTHLY_PRICE;
       }
     } else {
       if (isAnnualSelected) {
-        return "price_1NsTwEHPSFrU3NLYFzpAiuxu"
+        return environment.BASIC_ANNUAL_PRICE;
       } else {
-        return "price_1NsTsxHPSFrU3NLYs4GVDF3u"
+        return environment.BASIC_MONTHLY_PRICE;
       }
     }
   }

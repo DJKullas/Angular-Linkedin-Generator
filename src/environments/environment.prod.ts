@@ -9,5 +9,8 @@ export const environment = {
     measurementId: 'G-R2BBDE1LWK',
   },
   production: true,
-  PREMIUM_PRICE_ID: "price_1LcJHdHPSFrU3NLYZQfCMK8d",
+  BASIC_ANNUAL_PRICE: "price_1OKDvaHPSFrU3NLYrZNEvlUv",
+  BASIC_MONTHLY_PRICE: "price_1OKDvaHPSFrU3NLYKYJb1xOU",
+  PREMIUM_ANNUAL_PRICE: "price_1OKDw1HPSFrU3NLYmfUAQ6Ob",
+  PREMIUM_MONTHLY_PRICE: "price_1OKDw1HPSFrU3NLY8oSVep7K",
 };
