@@ -192,7 +192,7 @@ router.post('/updateSubscription', async (req, res) => {
 
 router.post('/createSubscription', async (req, res) => {
   console.log("HERE");
-  console.log("fdsf", process.env.DEV_URL);
+  console.log("fdsf", process.env.CURRENT_URL);
   try {
     const priceId = req.body.priceId;
     const customDomain = req.body.customDomain;
@@ -222,9 +222,9 @@ router.post('/createSubscription', async (req, res) => {
         },
       ],
       ...(customer ? { customer } : {}),
-      success_url: `${process.env.DEV_URL}/w/${userSelectedUrl}?redirectPaid=${useCustomDomain ? "professional" : "basic"}`,
+      success_url: `${process.env.CURRENT_URL}/w/${userSelectedUrl}?redirectPaid=${useCustomDomain ? "professional" : "basic"}`,
       //success_url: `${process.env.DEV_URL}/w/session_id={CHECKOUT_SESSION_ID}&${userSelectedUrl}?redirectPaid=${useCustomDomain ? "professional" : "basic"}`,
-      cancel_url: `${process.env.DEV_URL}`,
+      cancel_url: `${process.env.CURRENT_URL}`,
       client_reference_id: userID,
       metadata: metadata,
       subscription_data: {
