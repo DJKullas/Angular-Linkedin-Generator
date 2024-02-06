@@ -13,4 +13,5 @@ export const environment = {
   BASIC_MONTHLY_PRICE: "price_1OKDvaHPSFrU3NLYKYJb1xOU",
   PREMIUM_ANNUAL_PRICE: "price_1OKDw1HPSFrU3NLYmfUAQ6Ob",
   PREMIUM_MONTHLY_PRICE: "price_1OKDw1HPSFrU3NLY8oSVep7K",
+  CURRENT_URL: "http://linkedfolio.com",
 };

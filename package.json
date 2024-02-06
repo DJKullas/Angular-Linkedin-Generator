@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "postinstall": "ng build --output-path dist/linkedin-generator",
-    "go": "ng build && heroku local",
+    "go": "ng build --configuration=development && heroku local",
     "heroku": "heroku local"
   },
   "private": true,

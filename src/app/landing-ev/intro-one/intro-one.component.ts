@@ -150,7 +150,8 @@ validateAndScroll(id: any) {
       this.submitError = null;
 
       urlData.pipe(take(1)).subscribe((res: any) => {
-        if (res) {
+        console.log("IMPOORTANTE RESA", JSON.stringify(res))
+        if (res && res?.active) {
           console.log("URL IS TAKEN CHOOSE ANOTHER");
           this.submitError = "Desired Url taken. Please choose another.";
           this.navigatingToStripeBasic = false;
@@ -168,42 +169,58 @@ validateAndScroll(id: any) {
                 return;
               }
 
-          const user  = doc(this.store, "users/" + this.currentUserId, "/websites/" + this.userSelectedUrl);
+          //const user  = doc(this.store, "users/" + this.currentUserId, "/websites/" + this.userSelectedUrl);
 
           console.log("No RES SO SET THE DOC")
 
           // TODO add more website types
           this.websiteType = "creative";
 
-          const urlUpdateData: any = { id: this.userSelectedUrl, websiteType: this.websiteType, userId: this.currentUserId, linkedInId: id }
+          // const urlUpdateData: any = { id: this.userSelectedUrl, websiteType: this.websiteType, userId: this.currentUserId, linkedInId: id }
 
-          if (useCustomDomain) {
-            urlUpdateData.customDomain = this.customDomain;
-          }
+          // if (useCustomDomain) {
+          //   urlUpdateData.customDomain = this.customDomain;
+          // }
 
-          setDoc(url, urlUpdateData, { merge: true }).then(() => {
-            console.log("set doc");
-          }).then(() => {
-            const userUpdateData: any = { url: this.userSelectedUrl };
-            if (useCustomDomain) {
-              userUpdateData.customDomain = this.customDomain;
-            }
-            setDoc(user, userUpdateData, { merge: true }).then(async () => {
-              console.log("set user url");
+          // setDoc(url, urlUpdateData, { merge: true }).then(() => {
+          //   console.log("set doc");
+          // }).then(() => {
+            // const userUpdateData: any = { url: this.userSelectedUrl };
+            // if (useCustomDomain) {
+            //   userUpdateData.customDomain = this.customDomain;
+            // }
+            // setDoc(user, userUpdateData, { merge: true }).then(async () => {
+            //   console.log("set user url");
   
-              // if (useCustomDomain) {
-                console.log("INSIDE THE CUSTOM DOMAIN");
-                // console.log("Paymenyts: " + JSON.stringify(this.payments));
+            //   // if (useCustomDomain) {
+            //     console.log("INSIDE THE CUSTOM DOMAIN");
+            //     // console.log("Paymenyts: " + JSON.stringify(this.payments));
 
                 const priceId = this.linkedInService.getPriceId(useCustomDomain, isAnnualSelected);
                 const domainToAdd = useCustomDomain ? this.customDomain : null;
-                const session = await this.linkedInService.createStripeCheckoutSession(priceId, domainToAdd, this.userSelectedUrl, useCustomDomain);
+
+                const userData = doc(this.store, `users/${this.currentUserId}`);
+ 
+                docData(userData).subscribe(async (userResult: any) => {
+                  console.log("USER RESULT", userResult);
+                  if (userResult) {
+                    console.log("USER RESULT IS LIVe")
+                    const session = await this.linkedInService.createStripeCheckoutSession(priceId, domainToAdd, this.userSelectedUrl, useCustomDomain, this.currentUserId, userResult?.customerId, id, this.websiteType).subscribe(async (result: any) => {
+                      console.log("RESULT: " + JSON.stringify(result))
+                     
+            
+                     window.location.assign(result.url);
+            
+                    });
+                  } else {
+                    console.log("NEVER SHOULD BE HERE")
+                  }
+                });
+
+
 
                 // TODO: ADD URL PARAM TO SUCCESSFUL PAYMENT TO show dialog saying custom site takes 72 hours
 
-                console.log("Session: " + JSON.stringify(session));
-
-                window.location.assign(session.url);
               // } else {
               //   // TODO: Do cheaper pament plan
               //   this.router.navigate([`w/${this.userSelectedUrl}`]);
@@ -214,12 +231,12 @@ validateAndScroll(id: any) {
               
   
               // redirect to website page
-            })
-          }).catch(() => {
-            this.navigatingToStripeBasic = false;
-            this.navigatingToStripePro = false;
-            console.log("error setting doc");
-          });
+           // })
+          // }).catch(() => {
+          //   this.navigatingToStripeBasic = false;
+          //   this.navigatingToStripePro = false;
+          //   console.log("error setting doc");
+          // });
         }
       });
     

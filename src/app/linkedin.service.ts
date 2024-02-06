@@ -21,8 +21,8 @@ export class LinkedinService {
     return this.http.get('/api/linkedInInfo', {params: {linkedInId: linkedInId}});
   }
 
-  cancelSubscription(subscriptionId: string) {
-    return this.http.post("/api/cancelSubscription", { subscriptionId })
+  cancelSubscription(subscriptionId: string, customerId: string) {
+    return this.http.post("/api/cancelSubscription", { subscriptionId, customerId })
   }
 
   getSubscriptions(customerId: string) {
@@ -49,29 +49,12 @@ export class LinkedinService {
     }
   }
 
-  async createStripeCheckoutSession(priceId: any, customDomain: any, userSelectedUrl: any, useCustomDomain: boolean) {
-    const app = getApp();
-    const payments = getStripePayments(app, {
-      productsCollection: "products",
-      customersCollection: "customers",
-    });
-
-    //const ref_id = useCustomDomain ? customDomain : userSelectedUrl;
-    const metadata = useCustomDomain ? { customDomain, userSelectedUrl } : { userSelectedUrl };
-
-    const session = await createCheckoutSession(payments, {
-      price: priceId,
-      success_url: `http://localhost:5000/w/${userSelectedUrl}?redirectPaid=${useCustomDomain ? "professional" : "basic"}`,
-      cancel_url: "http://localhost:5000",
-      client_reference_id: userSelectedUrl,
-      metadata: metadata,
-    });
-
-    return session;
+  createStripeCheckoutSession(priceId: any, customDomain: any, userSelectedUrl: any, useCustomDomain: boolean, userID: string | null, customerID: string | null, linkedInId: string, websiteType: string) {
+    return this.http.post("/api/createSubscription", { customDomain, priceId, userSelectedUrl, useCustomDomain, userID, customerID, linkedInId, websiteType });
   }
 
-  updateStripeSubscription(priceId: string, subId: string, subItemId: string) {
-    console.log("update sub", subId, subItemId, priceId)
-    return this.http.post("/api/updateSubscription", { subItemId, priceId })
+  updateStripeSubscription(priceId: string, subId: string, customerId: string, customDomain: string, userId: string, userSelectedUrl: string) {
+    console.log("update sub", subId, priceId)
+    return this.http.post("/api/updateSubscription", { priceId, customerId, subId, customDomain, userId, userSelectedUrl })
   }
 }

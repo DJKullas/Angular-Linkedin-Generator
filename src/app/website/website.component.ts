@@ -9,6 +9,7 @@ import { DialogOverviewExampleDialog } from '../profile/profile.component';
 import { PendingDialog } from './pending-dialog.component';
 import { ImageUploaderService } from '../image-uploader.service';
 import { getDownloadURL } from '@angular/fire/storage';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-website',
@@ -29,6 +30,8 @@ export class WebsiteComponent implements OnInit {
   lookupKey: string = "";
   showUpgradeBanner: boolean = false;
   currentUserEmail: string = "";
+  subId: string = "";
+  currentUrl: string = environment.CURRENT_URL;
 
   constructor(private readonly auth: AngularFireAuth, private router: Router,private store: Firestore, private readonly linkedInService: LinkedinService,
               private route: ActivatedRoute, public dialog: MatDialog, private readonly imageUploaderService: ImageUploaderService) { }
@@ -45,9 +48,11 @@ export class WebsiteComponent implements OnInit {
     urlData.subscribe((res: any) => {
       console.log("subbed data", JSON.stringify(res));
       if (res && res?.active) {
+      //if (res) {
         this.websiteType = res.websiteType;
       this.linkedInId = res.linkedInId;
       this.ownerUserId = res.userId;
+      this.subId = res.subId;
       this.checkLogin();
       this.getLinkedInInfo();
       this.loadScripts();
@@ -62,38 +67,39 @@ export class WebsiteComponent implements OnInit {
         const thisWebsite = doc(this.store, "users/" + this.currentUserId + "/websites/" + this.lookupKey);
         docData(thisWebsite).subscribe((website: DocumentData) => {
           console.log("here");
-   
   
-          const customerRef = doc(this.store, "customers/" + this.currentUserId);
+          this.showUpgradeBanner = website?.planType == "basic";
+  
+          // const customerRef = doc(this.store, "customers/" + this.currentUserId);
 
-          docData(customerRef).subscribe((customer: DocumentData) => {
-            console.log("Stripe ID: " + customer.stripeId);
-            console.log("CUST: " + JSON.stringify(customer))
-            this.linkedInService.getSubscriptions(customer.stripeId).subscribe(async (result: any) => {
-              console.log("RESULT Getting subs: " + JSON.stringify(result))
+          // docData(customerRef).subscribe((customer: DocumentData) => {
+          //   console.log("Stripe ID: " + customer.stripeId);
+          //   console.log("CUST: " + JSON.stringify(customer))
+          //   this.linkedInService.getSubscriptions(customer.stripeId).subscribe(async (result: any) => {
+          //     console.log("RESULT Getting subs: " + JSON.stringify(result))
 
-              let paidDomains = result.filter((x: any) => {
-                return x?.metadata?.customDomain;
-              })
+          //     let paidDomains = result.filter((x: any) => {
+          //       return x?.metadata?.customDomain;
+          //     })
 
-              console.log("PAID DOMAINS OBJECTS: " + JSON.stringify(paidDomains))
+          //     console.log("PAID DOMAINS OBJECTS: " + JSON.stringify(paidDomains))
 
-              let finalPaidDomains = paidDomains.map((x: any) => {
-                return x?.metadata?.customDomain;
-              })
+          //     let finalPaidDomains = paidDomains.map((x: any) => {
+          //       return x?.metadata?.customDomain;
+          //     })
 
-              console.log("FINAL PAID DOMAINDS: " + JSON.stringify(finalPaidDomains))
+          //     console.log("FINAL PAID DOMAINDS: " + JSON.stringify(finalPaidDomains))
 
 
-              console.log("WEBSITE R US: " + JSON.stringify(website))
+          //     console.log("WEBSITE R US: " + JSON.stringify(website))
 
-              if (!finalPaidDomains.includes(website?.customDomain)) {
-                console.log("DO WE SHOW UPGRADE BANNER")
-                this.showUpgradeBanner = true;
-              }
+          //     if (!finalPaidDomains.includes(website?.customDomain)) {
+          //       console.log("DO WE SHOW UPGRADE BANNER")
+          //       this.showUpgradeBanner = true;
+          //     }
 
-            });
-          });
+          //   });
+          // });
 
       
         });
@@ -102,7 +108,7 @@ export class WebsiteComponent implements OnInit {
 
 openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      data: {url: this.lookupKey},
+      data: {url: this.lookupKey, subId: this.subId},
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -237,15 +243,16 @@ console.log("AFTER AWAIT")
         console.log(params); // { category: "fiction" }
         this.redirectPaid = params['redirectPaid'];
         if (this.redirectPaid == "professional") {
-          this.openPaidDialog("Your Custom Domain Coming Soon", "Thank you for purchasing a website with a custom domain. DNS updates can take up to 72 hours to register, so please wait until then for your website to be active. You will be emailed a link when your website is completed. Your website will look like the one below on your own domain!");
+          this.openPaidDialog("Your Custom Domain Coming Soon", "Thank you for purchasing a website with a custom domain. The first load for your website can sometimes be slow as we gather your LinkedIn data. DNS updates can take up to 72 hours to register, so please wait until then for your website to be active. You will be emailed a link when your website is completed. Your website will look like the one below on your own domain!");
         } else if (this.redirectPaid == "basic") {
-          this.openPaidDialog("Your Personal Website", `Thank you for creating a personal website. It can be accessed at localhost:5000/w/${this.lookupKey}.`)
+          this.openPaidDialog("Your Personal Website", `Thank you for creating a personal website. The first load for your website can sometimes be slow as we gather your LinkedIn data. It can be accessed at ${this.currentUrl}/w/${this.lookupKey}.`)
         }
       }
     );
   }
 
   ngOnInit(): void {
+    console.log("WE ARWE TRYING TO SHOW THE WEBSITE")
     this.getLinkedInId();
     this.setIfPaid(); 
   }

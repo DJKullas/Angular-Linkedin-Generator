@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
   @Input()
     parent: string = "";
     loggedIn: boolean = false;
+    displayName: string = "";
 
   ngOnInit() {
     this.checkLogin();
@@ -54,7 +55,9 @@ export class HeaderComponent implements OnInit {
       
       if (res) {
         console.log("Here");
+        console.log("Result of auth", JSON.stringify(res));
         this.loggedIn = true;
+        this.displayName = res?.displayName || "Profile"
         console.log(res);
       } else {
         console.log("Not Here");

@@ -9,7 +9,7 @@
 </div>
 <div mat-dialog-actions class="mat-dialog-actions">
   <button class="dialog-button" mat-raised-button color="secondary" (click)="onNoClick()">Cancel</button>
-  <button class="dialog-button" mat-raised-button color="primary" cdkFocusInitial (click)="checkDomain(subId, subItemId)">
+  <button class="dialog-button" mat-raised-button color="primary" cdkFocusInitial (click)="checkDomain(subId)">
     <mat-spinner color="accent" [diameter]="30" *ngIf="navigatingToStripe"></mat-spinner>
     <span *ngIf="!navigatingToStripe">Upgrade</span>
   </button>
