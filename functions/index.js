@@ -140,7 +140,7 @@ exports.handleCheckout = onRequest(async (req, res) => {
             
             const userWebsite = getFirestore().doc(`users/${userId}/websites/${userSelectedUrl}`);
 
-            const userUpdateData = { url: userSelectedUrl, active: true, planType, subId };
+            const userUpdateData = { url: userSelectedUrl, active: true, planType, subId, linkedInId };
             if (useCustomDomainBool) {
               userUpdateData["customDomain"] = customDomain;
             }
