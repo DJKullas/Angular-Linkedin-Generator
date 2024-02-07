@@ -13,7 +13,7 @@
         <div *ngIf="basicWebsites">
             <div class="website" *ngFor="let website of basicWebsites; let i = index;">
                 <div class="details">
-                    <h3>Your URL: <a href="www.linkedfolio.com/w/{{website.url}}">{{ website.url }}</a></h3>
+                    <h3>Your URL: <a href="/w/{{website.url}}">{{ website.url }}</a></h3>
                     <h3>Domain: Upgrade Now</h3>
                 </div>
                 <div class="buttons">
@@ -31,7 +31,7 @@
         <div *ngIf="professionalWebsites">
             <div class="website" *ngFor="let website of professionalWebsites; let i = index;">
                 <div class="details">
-                    <h3>Your URL: <a href="www.linkedfolio.com/w/{{website.url}}">{{ website.url }}</a></h3>
+                    <h3>Your URL: <a href="/w/{{website.url}}">{{ website.url }}</a></h3>
                     <h3>Domain: <a href="http://{{website.customDomain}}">{{website.customDomain}}</a></h3>
                 </div>
                 <div class="buttons">
