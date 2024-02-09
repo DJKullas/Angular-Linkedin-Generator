@@ -230,7 +230,7 @@ router.post('/createSubscription', async (req, res) => {
       subscription_data: {
         metadata: metadata,
         //trial_period_days: 30,
-        ...((process.env.BASIC_ANNUAL_PRICE == priceId || process.env.BASIC_MONTHLY_PRICE == priceId) ? {trial_period_days: 30} : {}),
+        ...((process.env.BASIC_ANNUAL_PRICE == priceId || process.env.BASIC_MONTHLY_PRICE == priceId) ? {trial_period_days: 7} : {}),
       },
     });
 
