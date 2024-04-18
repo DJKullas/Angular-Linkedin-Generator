@@ -243,9 +243,9 @@ console.log("AFTER AWAIT")
         console.log(params); // { category: "fiction" }
         this.redirectPaid = params['redirectPaid'];
         if (this.redirectPaid == "professional") {
-          this.openPaidDialog("Your Custom Domain Coming Soon", "Thank you for purchasing a website with a custom domain. The first load for your website can sometimes be slow as we gather your LinkedIn data. DNS updates can take up to 72 hours to register, so please wait until then for your website to be active. You will be emailed a link when your website is completed. Your website will look like the one below on your own domain!");
+          this.openPaidDialog("Your Custom Domain Coming Soon", "Thank you for purchasing a website with a custom domain. The first load for your website can sometimes take a minute as we gather your LinkedIn data. DNS updates can take up to 72 hours to register, so please wait until then for your website to be active. You will be emailed a link when your website is completed. Be sure to check your spam folder. Your website will look like the one below on your own domain!");
         } else if (this.redirectPaid == "basic") {
-          this.openPaidDialog("Your Personal Website", `Thank you for creating a personal website. The first load for your website can sometimes be slow as we gather your LinkedIn data. It can be accessed at ${this.currentUrl}/w/${this.lookupKey}.`)
+          this.openPaidDialog("Your Personal Website", `Thank you for creating a personal website. The first load for your website can sometimes take a minute as we gather your LinkedIn data. It can be accessed at ${this.currentUrl}/w/${this.lookupKey}. You will receive an email when it is ready. Be sure to check your spam folder.`)
         }
       }
     );
