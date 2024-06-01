@@ -59,6 +59,9 @@
 .main-input {
   margin-right: 15px;
 }
+.main-input mat-label {
+  color: white;
+}
 .submit-error {
   padding-left: 20px;
   color: red;
@@ -106,4 +109,6 @@ mat-spinner svg {
       top: -80px;
       transform: scale(.5);
   }
+
+
 }

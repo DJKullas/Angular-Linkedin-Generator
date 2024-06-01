@@ -43,8 +43,10 @@
       </div>
       <div fxLayout="row" fxLayout.lt-md="column">
   
-<button mat-raised-button color="primary" (click)="validateAndScroll('pricings-section')">
-  <span>Try for Free</span>
+<!-- <button mat-raised-button color="primary" (click)="validateAndScroll('pricings-section')"> -->
+<button class="subscribe-button top-button" mat-raised-button color="primary" (click)="createWebsite(false, isAnnualSelected)">
+  <mat-spinner [diameter]="30" color="accent" *ngIf="navigatingToStripeBasic"></mat-spinner>
+  <span *ngIf="!navigatingToStripeBasic">Try for Free</span>
 </button>
 <p *ngIf="submitError" class="submit-error">{{ submitError }}</p>
 
