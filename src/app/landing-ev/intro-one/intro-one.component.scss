@@ -9,7 +9,7 @@
   overflow: hidden
 }
 .home-intro-title {
-  margin: 0 0 24px;
+  margin: 0 auto 24px;
   font-size: 48px;
   font-weight: 900;
   line-height: 52px;
@@ -25,9 +25,7 @@
   margin: 0 0 40px;
 }
 .intro-product {
-  position: relative;
-  top: 100px;
-  left: 60px;
+
 }
 .intro-product-link {
   position: absolute;
@@ -89,7 +87,7 @@ mat-spinner svg {
     padding: 100px 0 60px;
   }
   .home-intro-title {
-    margin: 0 0 30px;
+    margin: 0 auto 30px;
     font-size: 32px;
     font-weight: 900;
     line-height: 38px;
